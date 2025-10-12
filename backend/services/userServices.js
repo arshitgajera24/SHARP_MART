@@ -329,7 +329,7 @@ export const getFullDetailsByUserId = async (userId) => {
         isBlocked: usersTable.isBlocked,
         createdAt: usersTable.createdAt,
         updatedAt: usersTable.updatedAt,
-        providers: sql`COALESCE(GROUP_CONCAT(DISTINCT ${oauthAccountsTable.provider}), "local")`.as("providers"),
+        providers: sql`COALESCE(STRING_AGG(DISTINCT ${oauthAccountsTable.provider}::text, ','), 'local')`.as("providers"),
     }).from(usersTable).leftJoin(oauthAccountsTable, eq(usersTable.id, oauthAccountsTable.userId)).where(eq(usersTable.id, userId)).groupBy(usersTable.id);
     
     if(!user) return null;

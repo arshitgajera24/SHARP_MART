@@ -1,10 +1,13 @@
-import { drizzle } from "drizzle-orm/mysql2";
-import dotenv from "dotenv"
-dotenv.config();
+import postgres from 'postgres';
+import { drizzle } from 'drizzle-orm/postgres-js';
 
-export const db = drizzle(process.env.DATABASE_URL);
+const sql = postgres(process.env.DATABASE_URL,{
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
-if(db) console.log("MySQL Connected");
+export const db = drizzle(sql);
  
 
 

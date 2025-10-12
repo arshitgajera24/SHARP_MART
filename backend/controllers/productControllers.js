@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import {addProductValidatorSchema, editProductValidatorSchema} from "../validators/productValidators.js"
 import * as productServices from "../services/productServices.js";
-import { doublePrecision } from "drizzle-orm/pg-core";
 
 export const addProduct = async (req, res) => {
     try {
@@ -16,7 +15,7 @@ export const addProduct = async (req, res) => {
             name: req.body.name,
             category: req.body.category,
             description: req.body.description,
-            ratings: req.body.ratings ? doublePrecision(req.body.ratings) : 0,
+            ratings: req.body.ratings ? Number(req.body.ratings) : 0,
             price: req.body.price ? Number(req.body.price) : 0,
             original_price: req.body.original_price ? Number(req.body.original_price) : 0,
             isAvailable: req.body.isAvailable === "true" || req.body.isAvailable === true,

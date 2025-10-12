@@ -15,12 +15,12 @@ export const getCartItemsByUserId = async (userId) => {
 }
 
 export const addNewOrder = async ({userId, amount, firstName, lastName, email, street, city, state, zipCode, country, phone, status }) => {
-    const [newOrder] = await db.insert(ordersTable).values({userId, amount, firstName, lastName, email, street, city, state, zipCode, country, phone, status }).returning({ id: ordersTable.id });;
+    const [newOrder] = await db.insert(ordersTable).values({userId, amount, firstName, lastName, email, street, city, state, zipCode, country, phone, status }).returning({ id: ordersTable.id });
     return newOrder.id;
 }
 
 export const addNewOrderItems = async (orderItems) => {
-    const [orderItem] = await db.insert(orderItemsTable).values(orderItems).returning({ id: orderItemsTable.id });;
+    const [orderItem] = await db.insert(orderItemsTable).values(orderItems).returning({ id: orderItemsTable.id });
     return orderItem.id;
 }
 

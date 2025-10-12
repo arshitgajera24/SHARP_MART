@@ -1,0 +1,259 @@
+.section-products {
+    padding: 50px 0%;
+    background-color: #fff;
+    font-family: "Outfit", sans-serif;
+    color: #333;
+    margin-top: -30px;
+}
+
+.products-container {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.products-sidebar {
+    width: 250px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.05);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.products-sidebar h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.category-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.category-list li {
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 15px;
+    color: #555;
+}
+
+.category-list li.active, .category-list li:hover {
+    background-color: tomato;
+    color: #fff;
+}
+
+.rating-filters label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    color: #555;
+}
+
+.rating-filters input[type="radio"] {
+    accent-color: tomato;
+    cursor: pointer;
+}
+
+.price-range {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.price-range input[type="number"] {
+    width: 100px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: border 0.3s;
+}
+
+.price-range input[type="number"]:focus {
+    border-color: tomato;
+}
+
+.price-range span {
+    font-size: 14px;
+    color: #555;
+}
+
+.products-sidebar select {
+    width: 100%;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 14px;
+    color: #333;
+    transition: border 0.3s;
+}
+
+.products-sidebar select:focus {
+    border-color: tomato;
+}
+
+.food-display {
+    flex: 1;
+    margin-top: 0;
+}
+
+.food-display h2 {
+    font-size: max(2vw, 24px);
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.food-display-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 30px;
+}
+
+.price-range input[type="number"] {
+    width: 90px;
+}
+
+.no-product {
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: tomato;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-top: 4rem;
+}
+
+.category-select {
+    display: none;
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 14px;
+    color: #333;
+    transition: border 0.3s;
+}
+
+.category-select:focus {
+    border-color: tomato;
+}
+
+@media (max-width: 1024px) {
+    .products-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .products-sidebar {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 15px;
+    }
+    .products-sidebar h3 {
+        width: 100%;
+    }
+    .category-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .category-list li {
+        flex: 1 1 45%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 900px) {
+    .category-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .category-list li {
+        flex: 1 1 45%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 720px) {
+    .food-display-list {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    .price-range input[type="number"] {
+        width: 150px;
+    }
+    .category-list li {
+        flex: 1 1 100%;
+    }
+    .category-list {
+        display: none;
+    }
+    .category-select {
+        display: block;
+    }
+}
+
+@media (max-width: 500px) {
+    .food-display-list {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    .products-sidebar {
+        flex-direction: column;
+    }
+    .price-range input[type="number"] {
+        width: 130px;
+    }
+    .category-list li {
+        flex: 1 1 100%;
+    }
+    .category-list {
+        display: none;
+    }
+    .category-select {
+        display: block;
+    }
+}
+
+@media (max-width: 420px) {
+    .food-display-list {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    .products-sidebar {
+        flex-direction: column;
+    }
+    .price-range input[type="number"] {
+        width: 120px;
+    }
+    .category-list li {
+        flex: 1 1 100%;
+    }
+    .category-select {
+        font-size: 13px;
+        padding: 6px 8px;
+    }
+    .price-range input[type="number"] {
+        width: 100px;
+    }
+}

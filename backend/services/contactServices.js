@@ -3,7 +3,7 @@ import { db } from "../config/db.js"
 import { contactsTable } from "../drizzle/schema.js"
 
 export const addNewContact = async ({fullName, email, subject, message}) => {
-    const [newContact] = await db.insert(contactsTable).values({fullName, email, subject, message}).$returning(['id']);
+    const [newContact] = await db.insert(contactsTable).values({fullName, email, subject, message}).returning({ id: contactsTable.id });
     return newContact.id;
 }
 

@@ -153,7 +153,7 @@
 
 
 import { relations, sql } from "drizzle-orm";
-import { pgTable, serial, float, integer, varchar, text, boolean, timestamp, pgEnum } from "drizzle-orm/pg-core";
+import { pgTable, serial, double, integer, varchar, text, boolean, timestamp, pgEnum } from "drizzle-orm/pg-core";
 
 // ---------- USERS ----------
 export const usersTable = pgTable("users", {
@@ -176,7 +176,7 @@ export const productsTable = pgTable("products", {
   description: varchar("description", { length: 255 }).notNull(),
   price: integer("price").notNull(),
   originalPrice: integer("original_price").notNull(),
-  ratings: float("ratings").notNull(),
+  ratings: double("ratings").notNull(),
   image: text("image"),
   isAvailable: boolean("is_available").default(true).notNull(),
 });

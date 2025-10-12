@@ -176,7 +176,7 @@ export const productsTable = pgTable("products", {
   description: varchar("description", { length: 255 }).notNull(),
   price: integer("price").notNull(),
   originalPrice: integer("original_price").notNull(),
-  ratings: integer("ratings").notNull(),
+  ratings: float("ratings").notNull(),
   image: text("image"),
   isAvailable: boolean("is_available").default(true).notNull(),
 });

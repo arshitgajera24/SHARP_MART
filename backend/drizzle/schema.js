@@ -153,7 +153,7 @@
 
 
 import { relations, sql } from "drizzle-orm";
-import { pgTable, serial, integer, varchar, text, boolean, timestamp, pgEnum } from "drizzle-orm/pg-core";
+import { pgTable, serial, float, integer, varchar, text, boolean, timestamp, pgEnum } from "drizzle-orm/pg-core";
 
 // ---------- USERS ----------
 export const usersTable = pgTable("users", {

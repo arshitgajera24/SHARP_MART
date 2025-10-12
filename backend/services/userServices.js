@@ -302,7 +302,7 @@ export const getAllUsersList = async () => {
         isBlocked: usersTable.isBlocked,
         createdAt: sql`TO_CHAR(${usersTable.createdAt}, 'DD-MM-YYYY')`,
         updatedAt: sql`TO_CHAR(${usersTable.updatedAt}, 'DD-MM-YYYY')`,
-        providers: sql`COALESCE(STRING_AGG(DISTINCT ${oauthAccountsTable.provider}, ','), 'local')`.as("providers"),
+        providers: sql`COALESCE(STRING_AGG(DISTINCT ${oauthAccountsTable.provider}::text, ','), 'local')`.as("providers"),
         totalOrders: sql`COUNT(DISTINCT ${ordersTable.id})`.as("totalOrders"),
         totalSpent: sql`COALESCE(SUM(${ordersTable.amount} + 100), 0)`.as("totalSpent"),
         activeSession: sql`CASE WHEN EXISTS(SELECT 1 FROM ${sessionsTable} WHERE ${sessionsTable.userId} = ${usersTable.id} AND ${sessionsTable.valid} = TRUE) THEN 'Active' ELSE 'Offline' END`.as("activeSession"),

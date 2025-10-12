@@ -75,8 +75,8 @@ export const postLogin = async (req, res) => {
 export const logoutUser = async (req, res) => {
     try {
         await userServices.clearSession(req.user.sessionId);
-        res.clearCookie("access_token");
-        res.clearCookie("refresh_token");
+        res.clearCookie("access_token", { httpOnly: true, secure: true, sameSite: "none" });
+        res.clearCookie("refresh_token", { httpOnly: true, secure: true, sameSite: "none" });
         res.json({success:true, message: "Logout Successful"});
     } catch (error) {
         res.json({success:false, error: error.message});

@@ -1,0 +1,2 @@
+ALTER TABLE `products` MODIFY COLUMN `ratings` float NOT NULL;--> statement-breakpoint
+ALTER TABLE `cart_items` ADD CONSTRAINT `cart_items_item_id_products_id_fk` FOREIGN KEY (`item_id`) REFERENCES `products`(`id`) ON DELETE no action ON UPDATE no action;

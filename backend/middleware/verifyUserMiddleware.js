@@ -31,7 +31,7 @@ export const verifyAuthentication = async (req, res, next) => {
 
             req.user = user;
 
-            const baseConfig = { httpOnly: true, secure: process.env.NODE_ENV === "production" };
+            const baseConfig = { httpOnly: true, secure: true, sameSite: "none", };
 
             res.cookie("access_token", newAccessToken, {
                 ...baseConfig,

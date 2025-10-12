@@ -25,12 +25,12 @@ export const comparePassword = async (password, hash) => {
 }
 
 export const addNewUser = async ({name, email, password}) => {
-    const [newUser] = await db.insert(usersTable).values({name, email, password}).$returningId();
+    const [newUser] = await db.insert(usersTable).values({name, email, password}).returning({ id: usersTable.id });
     return newUser.id;
 }
 
 export const createSession = async (userId, { ip, userAgent }) => {
-    const [session] = await db.insert(sessionsTable).values({userId, ip, userAgent}).$returningId();
+    const [session] = await db.insert(sessionsTable).values({userId, ip, userAgent}).returning({ id: sessionsTable.id });
     return session.id;
 }
 
@@ -276,7 +276,7 @@ export const linkUserWithOAuth = async ({userId, provider, providerAccountId, av
 
 export const createUserWithOAuth = async ({name, email, provider, providerAccountId, avatarUrl}) => {
     const user = await db.transaction(async (tx) => {
-        const [user] = await tx.insert(usersTable).values({name, email, avatarUrl, isEmailValid: true}).$returningId();
+        const [user] = await tx.insert(usersTable).values({name, email, avatarUrl, isEmailValid: true}).returning({ id: usersTable.id });
         await tx.insert(oauthAccountsTable).values({provider, providerAccountId, userId: user.id});
 
         return {

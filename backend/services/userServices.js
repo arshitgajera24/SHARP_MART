@@ -129,7 +129,7 @@ export const authenticateUser = async ({req, res, user, name, email}) => {
 
     const refreshToken = createRefreshToken(sessionId);
 
-    const baseConfig = { httpOnly: true, secure: process.env.NODE_ENV === "production", };
+    const baseConfig = { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "none", };
 
     res.cookie("access_token", accessToken, {
         ...baseConfig,

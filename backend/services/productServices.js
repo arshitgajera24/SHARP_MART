@@ -3,7 +3,7 @@ import { db } from "../config/db.js"
 import { productsTable } from "../drizzle/schema.js";
 
 export const addNewProduct = async ({name, category, description, price, original_price, ratings, image, isAvailable}) => {
-    const [product] = await db.insert(productsTable).values({name, category, description, price, originalPrice: original_price, ratings, image, isAvailable}).$returningId();
+    const [product] = await db.insert(productsTable).values({name, category, description, price, originalPrice: original_price, ratings, image, isAvailable}).returning({ id: productsTable.id });;
     return product;
 }
 

@@ -306,7 +306,7 @@ export const getAllUsersList = async () => {
         totalOrders: sql`COUNT(DISTINCT ${ordersTable.id})`.as("totalOrders"),
         totalSpent: sql`COALESCE(SUM(${ordersTable.amount} + 100), 0)`.as("totalSpent"),
         activeSession: sql`CASE WHEN EXISTS(SELECT 1 FROM ${sessionsTable} WHERE ${sessionsTable.userId} = ${usersTable.id} AND ${sessionsTable.valid} = TRUE) THEN 'Active' ELSE 'Offline' END`.as("activeSession"),
-    }).from(usersTable).leftJoin(oauthAccountsTable, eq(usersTable.id, oauthAccountsTable.userId)).leftJoin(ordersTable, eq(usersTable.id, ordersTable.userId)).leftJoin(sessionsTable, eq(usersTable.isBlocked, sessionsTable.userId)).groupBy(usersTable.id).orderBy(sql`${usersTable.createdAt} DESC`);
+    }).from(usersTable).leftJoin(oauthAccountsTable, eq(usersTable.id, oauthAccountsTable.userId)).leftJoin(ordersTable, eq(usersTable.id, ordersTable.userId)).leftJoin(sessionsTable, eq(usersTable.id, sessionsTable.userId)).groupBy(usersTable.id).orderBy(sql`${usersTable.createdAt} DESC`);
 
     return user;
 }

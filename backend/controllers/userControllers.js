@@ -92,8 +92,8 @@ export const getCurrentUser = async (req, res) => {
     const user = await userServices.findUserByIdWithoutPassword(req.user.id);
     if(user.isBlocked)
     {
-        res.clearCookie("access_token");
-        res.clearCookie("refresh_token");
+        res.clearCookie("access_token", { httpOnly: true, secure: true, sameSite: "none" });
+        res.clearCookie("refresh_token", { httpOnly: true, secure: true, sameSite: "none" });
         return res.json({success: false, authenticated: false, error: "Your Account has been Blocked. Contact Support."});
     }
     res.json({success: true, authenticated:true, user});
@@ -111,8 +111,8 @@ export const getProfile = async (req, res) => {
 
         if(user.isBlocked)
         {
-            res.clearCookie("access_token");
-            res.clearCookie("refresh_token");
+            res.clearCookie("access_token", { httpOnly: true, secure: true, sameSite: "none" });
+            res.clearCookie("refresh_token", { httpOnly: true, secure: true, sameSite: "none" });
             return res.json({success: false, redirect: "/"});
         }
         else
@@ -578,8 +578,8 @@ export const getUserAllDetails = async (req, res) => {
 
         if(user.isBlocked)
         {
-            res.clearCookie("access_token");
-            res.clearCookie("refresh_token");
+            res.clearCookie("access_token", { httpOnly: true, secure: true, sameSite: "none" });
+            res.clearCookie("refresh_token", { httpOnly: true, secure: true, sameSite: "none" });
             return res.json({success: false, redirect: "/", error: "Your Account has been Blocked. Contact Support."});
         }
 

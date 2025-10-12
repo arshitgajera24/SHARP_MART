@@ -1,0 +1,18 @@
+.home-admin {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fdfdfd;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.home-admin img {
+    max-width: 300px;
+    opacity: 0.2;
+    display: block;
+}

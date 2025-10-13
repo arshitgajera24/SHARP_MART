@@ -426,3 +426,20 @@
 .navbar-menu-mobile a {
     padding: 8px 4px;
 }
+
+@media (max-width: 450px) {
+    .navbar-right {
+        gap: 10px;
+    }
+
+    .navbar-right img {
+        width: 17px;
+        height: auto;
+    }
+
+    .navbar-profile img:first-child {
+        width: 30px;
+        height: auto;
+        margin-right: -5px;
+    }
+}

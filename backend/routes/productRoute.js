@@ -26,11 +26,13 @@ const fileFilter = (req, file, cb) => {
     }
 }
 
-const upload = multer({
-    storage,
-    fileFilter,
-    limits: { fileSize: 5 * 1024 * 1024 }, //5MB
-})
+// const upload = multer({
+//     storage,
+//     fileFilter,
+//     limits: { fileSize: 5 * 1024 * 1024 }, //5MB
+// })
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 productRouter.route("/add").post(upload.single("image"), productControllers.addProduct);
 productRouter.route("/list").get(productControllers.listProducts);

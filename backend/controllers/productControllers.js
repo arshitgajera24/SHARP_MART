@@ -2,26 +2,31 @@ import fs from "fs";
 import path from "path";
 import {addProductValidatorSchema, editProductValidatorSchema} from "../validators/productValidators.js"
 import * as productServices from "../services/productServices.js";
+import cloudinary from "../config/cloudinary.js";
+import streamifier from "streamifier";
 
 export const addProduct = async (req, res) => {
     try {
-        const image = req.file ? `${req.file.filename}` : `parcel_icon.png`;
-
-        const formData = new FormData();
-        formData.append("image", image);
-        formData.append("upload_preset", "SHARP_MART_IMAGES");
-        formData.append("cloud_name", "dx8t6jfrc");
-        const res = await fetch("https://api.cloudinary.com/v1_1/dx8t6jfrc/image/upload", {
-            method: "POST",
-            body: formData,
-        });
-
-        const res_data = await res.json();
-        const image_filename = res_data.url;
-
-        if (!req.file) {
+        const file = req.file;
+        if (!file) {
             return res.json({ success: false, error: "Image is required" });
         }
+
+        const uploadToCloudinary = (buffer) => {
+            return new Promise((resolve, reject) => {
+                const stream = cloudinary.uploader.upload_stream(
+                    { folder: "SHARP_MART_IMAGES" },
+                    (error, result) => {
+                        if (result) resolve(result);
+                        else reject(error);
+                    }
+                );
+                streamifier.createReadStream(buffer).pipe(stream);
+            });
+        };
+
+        const uploadResult = await uploadToCloudinary(file.buffer);
+        const image_filename = uploadResult.secure_url;
         
         const parsedBody = {
             name: req.body.name,
@@ -75,17 +80,17 @@ export const removeProduct = async (req, res) => {
             return res.json({ success: false, error: "Product not found" });
         }
 
-        const imagePath = path.join(process.cwd(), "uploads", productRemoved.image);
-        if (fs.existsSync(imagePath)) 
-        {
-            fs.unlink(imagePath, (err) => {
-                if (err) console.error("Error Deleting File: ", err);
-            });
-        } 
-        else 
-        {
-            return res.json({ success: false, error: "Image File Not Found" });
-        }
+        // const imagePath = path.join(process.cwd(), "uploads", productRemoved.image);
+        // if (fs.existsSync(imagePath)) 
+        // {
+        //     fs.unlink(imagePath, (err) => {
+        //         if (err) console.error("Error Deleting File: ", err);
+        //     });
+        // } 
+        // else 
+        // {
+        //     return res.json({ success: false, error: "Image File Not Found" });
+        // }
 
         await productServices.findProductByIdAndDelete(req.body.id);
         res.json({success:true, message: "Product Removed Successfully"})

@@ -28,7 +28,7 @@ const Products = () => {
     }
 
   return (
-    <div className='section-products'>
+    <div className='section-products' id="p1">
         <div className="container-header">
             <h1 className="section-common--heading">Products</h1>
             <p className="section-common-subheading">

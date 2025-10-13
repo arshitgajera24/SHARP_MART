@@ -315,13 +315,24 @@
   }
 }
 
-@media (max-width: 410px) {
-  .login-popup-container {
-    max-width: 300px;
-  }
+@media (max-width: 400px) {
+    .login-popup-container {
+        max-width:300px
+    }
 
-  .right-side-form {
-    width: 250px;
-    padding: 10px;
-  }
+    .right-side-form {
+        width: 300px;
+        padding: 10px
+    }
+}
+
+@media (max-width: 350px) {
+    .login-popup-container {
+        max-width:280px
+    }
+
+    .right-side-form {
+        width: 280px;
+        padding: 10px
+    }
 }

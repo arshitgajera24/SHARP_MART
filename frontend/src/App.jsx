@@ -18,6 +18,7 @@ import ChangePassword from './pages/ChangePassword/ChangePassword';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import Resetpassword from './pages/ResetPassword/ResetPassword';
 import SetPassword from './pages/SetPassword/SetPassword';
+import ScrollToHashElement from "./components/ScrollToHashElement/ScrollToHashElement";
 
 const App = () => {
 
@@ -37,6 +38,7 @@ const App = () => {
 
   return (
     <>
+      <ScrollToHashElement />
       <Navbar setShowLogin={setShowLogin} />
         {
           showLogin

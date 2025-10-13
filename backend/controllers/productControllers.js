@@ -5,7 +5,19 @@ import * as productServices from "../services/productServices.js";
 
 export const addProduct = async (req, res) => {
     try {
-        const image_filename = req.file ? `${req.file.filename}` : `parcel_icon.png`;
+        const image = req.file ? `${req.file.filename}` : `parcel_icon.png`;
+
+        const formData = new FormData();
+        formData.append("image", image);
+        formData.append("upload_preset", "SHARP_MART_IMAGES");
+        formData.append("cloud_name", "dx8t6jfrc");
+        const res = await fetch("https://api.cloudinary.com/v1_1/dx8t6jfrc/image/upload", {
+            method: "POST",
+            body: formData,
+        });
+
+        const res_data = await res.json();
+        const image_filename = res_data.url;
 
         if (!req.file) {
             return res.json({ success: false, error: "Image is required" });

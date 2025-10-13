@@ -4,6 +4,9 @@ import {decodeIdToken, generateCodeVerifier, generateState} from "arctic"
 import {google} from "../lib/OAuth/google.js"
 import {github} from "../lib/OAuth/github.js"
 import { OAUTH_EXCHANGE_EXPIRY } from "../config/constants.js";
+import streamifier from "streamifier";
+import cloudinary from "../config/cloudinary.js";
+
 
 export const postRegister = async (req, res) => {
     try {
@@ -202,7 +205,24 @@ export const postEditProfile = async (req, res) => {
         }
 
         const {name} = data;
-        const fileUrl = req.file ? req.file.filename : undefined;
+
+        const file = req.file;
+
+        const uploadToCloudinary = (buffer) => {
+            return new Promise((resolve, reject) => {
+                const stream = cloudinary.uploader.upload_stream(
+                    { folder: "SHARP_MART_IMAGES" },
+                    (error, result) => {
+                        if (result) resolve(result);
+                        else reject(error);
+                    }
+                );
+                streamifier.createReadStream(buffer).pipe(stream);
+            });
+        };
+
+        const uploadResult = await uploadToCloudinary(file.buffer);
+        const fileUrl = uploadResult.secure_url;
 
         await userServices.EditUserProfile({userId: req.user.id, name, avatarUrl: fileUrl});
         res.json({success: true, message: "Profile Updated Successfully"});

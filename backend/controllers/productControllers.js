@@ -79,19 +79,7 @@ export const removeProduct = async (req, res) => {
         if (!productRemoved) {
             return res.json({ success: false, error: "Product not found" });
         }
-
-        // const imagePath = path.join(process.cwd(), "uploads", productRemoved.image);
-        // if (fs.existsSync(imagePath)) 
-        // {
-        //     fs.unlink(imagePath, (err) => {
-        //         if (err) console.error("Error Deleting File: ", err);
-        //     });
-        // } 
-        // else 
-        // {
-        //     return res.json({ success: false, error: "Image File Not Found" });
-        // }
-
+        
         await productServices.findProductByIdAndDelete(req.body.id);
         res.json({success:true, message: "Product Removed Successfully"})
 
@@ -129,7 +117,26 @@ export const editProduct = async (req, res) => {
         if(!oldProduct)
             return res.json({success: false, error: "Product Not Found"});
 
-        const image_filename = req.file ? `${req.file.filename}` : req.body.image;
+        let image_filename = oldProduct.image;
+        if (req.file) {
+            const file = req.file;
+
+            const uploadToCloudinary = (buffer) => {
+                return new Promise((resolve, reject) => {
+                    const stream = cloudinary.uploader.upload_stream(
+                        { folder: "SHARP_MART_IMAGES" },
+                        (error, result) => {
+                            if (result) resolve(result);
+                            else reject(error);
+                        }
+                    );
+                    streamifier.createReadStream(buffer).pipe(stream);
+                });
+            };
+
+            const uploadResult = await uploadToCloudinary(file.buffer);
+            image_filename = uploadResult.secure_url;
+        }
         
         const productId = await productServices.findProductByIdAndUpdate({id, name, category, description, price, original_price, image: image_filename, ratings, isAvailable});
         return res.json({success: true, message: "Product Updated Successfully", productId});

@@ -38,11 +38,13 @@ const avatarFileFilter = (req, file, cb) => {
     }
 }
 
-const avatarUpload = multer({
-    storage: avatarStorage,
-    fileFilter: avatarFileFilter,
-    limits: {fileSize: 5*1024*1024},
-})
+// const avatarUpload = multer({
+//     storage: avatarStorage,
+//     fileFilter: avatarFileFilter,
+//     limits: {fileSize: 5*1024*1024},
+// })
+
+const avatarUpload = multer({ storage: multer.memoryStorage() })
 
 userRouter.route("/edit-profile").get(verifyAuthentication, userControllers.getEditProfilePage).post(avatarUpload.single("avatar"), verifyAuthentication, userControllers.postEditProfile);
 

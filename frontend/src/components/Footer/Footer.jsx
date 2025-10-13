@@ -17,7 +17,7 @@ const Footer = () => {
                     <h2 className="contact-title"> Let’s revolutionize the way you shop groceries </h2>
                     <p> Shop Smarter & Fast with <strong>SHARP MART</strong> </p>
                     <div className="c-btn">
-                        <Link to="/products"> 
+                        <Link to="/products#p1"> 
                             Start Shopping Now <FaArrowCircleRight />
                         </Link>
                     </div>

@@ -75,7 +75,7 @@ const Cart = () => {
                         return (
                             <div key={index}>
                                 <div className="cart-items-title cart-items-item">
-                                    <img src={`${import.meta.env.VITE_BACKEND_URL}/images/${item.image}`} alt="Item Image" />
+                                    <img src={item.image} alt="Item Image" />
                                     <p>{item.name}</p>
                                     <p>&#8377; {item.price}</p>
                                     <div className="stockElement">

@@ -119,10 +119,8 @@ const EditProfile = () => {
                                     <img src={data.avatar ? URL.createObjectURL(data.avatar) : assets.profile_icon} alt="" />
                                 </div>
                             :   userData?.avatarUrl
-                                ?   !userData?.avatarUrl.startsWith("http")
-                                    ?<img src={`${import.meta.env.VITE_BACKEND_URL}/avatar/${userData?.avatarUrl}`} alt={userData?.name} />
-                                    :<img src={userData?.avatarUrl} alt={userData?.name} />
-                                : <span>{userData?.name?.charAt(0).toUpperCase()}</span>
+                                ?   <img src={userData?.avatarUrl} alt={userData?.name} />
+                                :   <span>{userData?.name?.charAt(0).toUpperCase()}</span>
                         }
                     </div>
 

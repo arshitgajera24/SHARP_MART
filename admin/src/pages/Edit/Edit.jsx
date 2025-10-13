@@ -87,7 +87,7 @@ const Edit = () => {
                                 data.image 
                                 ? ( data.image instanceof File
                                     ?   URL.createObjectURL(data.image)
-                                    :   `${import.meta.env.VITE_BACKEND_URL}/images/${data.image}`
+                                    :   `${data.image}`
                                   ) 
                                 : assets.upload_area
                             } alt="Upload Image" />

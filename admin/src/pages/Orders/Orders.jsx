@@ -82,7 +82,7 @@ const Orders = () => {
                             {
                               order.items.map((item, index) => {
                                 return <div key={index}>
-                                  <img src={`${import.meta.env.VITE_BACKEND_URL}/images/${item.productImage}`} alt="Product" />
+                                  <img src={item.productImage} alt="Product" />
                                   <div className="item-details">
                                     <p className="item-name">{item.productName}</p>
                                     <p>&#8377; {item.productPrice} x {item.quantity}</p>

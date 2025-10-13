@@ -82,11 +82,9 @@ const Profile = () => {
                                 <div className="profile-avatar">
                                     <div className="avatar-placeholder">
                                         {
-                                        userData?.avatarUrl
-                                        ?   !userData?.avatarUrl.startsWith("http")
-                                            ?<img src={`${import.meta.env.VITE_BACKEND_URL}/avatar/${userData?.avatarUrl}`} alt={userData?.name} />
-                                            :<img src={userData?.avatarUrl} alt={userData?.name} />
-                                        : <span>{userData?.name?.charAt(0).toUpperCase()}</span>
+                                            userData?.avatarUrl
+                                            ?   <img src={userData?.avatarUrl} alt={userData?.name} />
+                                            :   <span>{userData?.name?.charAt(0).toUpperCase()}</span>
                                         }
                                     </div>
                                 </div>

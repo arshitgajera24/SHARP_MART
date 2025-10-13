@@ -55,10 +55,8 @@ const UserView = () => {
         <div className="user-card">
             {
                 user?.avatarUrl
-                ?   !user?.avatarUrl.startsWith("http")
-                    ?<img src={`${import.meta.env.VITE_BACKEND_URL}/avatar/${user?.avatarUrl}`} alt={user?.name} />
-                    :<img src={user?.avatarUrl} alt={user?.name} />
-                : <span>{user?.name?.charAt(0).toUpperCase()}</span>
+                ?   <img src={user?.avatarUrl} alt={user?.name} />
+                :   <span>{user?.name?.charAt(0).toUpperCase()}</span>
             }
             <div className="user-info">
                 <h2>{user?.name}</h2>

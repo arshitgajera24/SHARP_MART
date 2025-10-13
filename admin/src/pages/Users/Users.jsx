@@ -86,10 +86,8 @@ const Users = () => {
                   return <div key={index} className="user-table-format">
                     {
                       user?.avatarUrl
-                      ?   !user?.avatarUrl.startsWith("http")
-                          ?<img src={`${import.meta.env.VITE_BACKEND_URL}/avatar/${user?.avatarUrl}`} alt={user?.name} />
-                          :<img src={user?.avatarUrl} alt={user?.name} />
-                      : <span>{user?.name?.charAt(0).toUpperCase()}</span>
+                      ?   <img src={user?.avatarUrl} alt={user?.name} />
+                      :   <span>{user?.name?.charAt(0).toUpperCase()}</span>
                     }
                     <p className="name">{user.name}</p>
                     <p className="email">{user.email}</p>

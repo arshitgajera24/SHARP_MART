@@ -69,7 +69,7 @@ const List = () => {
           list.map((item, index) => {
             return (
               <div key={index} className='list-table-format'>
-                <img src={`${import.meta.env.VITE_BACKEND_URL}/images/`+item.image} alt="Image" />
+                <img src={item.image} alt="Image" />
                 <p className="name">{item.name}</p>
                 <p className="category">{item.category}</p>
                 <p className="ratings">{item.ratings}</p>

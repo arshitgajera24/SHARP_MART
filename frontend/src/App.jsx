@@ -9,7 +9,6 @@ import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 import Footer from './components/Footer/Footer';
 import LoginPopup from './components/LoginPopup/LoginPopup';
 import { Error } from './pages/Error/Error';
-import VerifyOrder from './pages/VerifyOrder/VerifyOrder';
 import MyOrders from './pages/MyOrders/MyOrders';
 import Products from './pages/Products/Products';
 import Profile from './pages/Profile/Profile';
@@ -52,7 +51,6 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/order" element={<PlaceOrder />} />
-            <Route path="/verify" element={<VerifyOrder />} />
             <Route path="/myorders" element={<MyOrders />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/verify-email" element={<VerifyEmail />} />

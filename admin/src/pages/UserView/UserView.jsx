@@ -102,7 +102,7 @@ const UserView = () => {
                                 {
                                     order.items.map((item, index) => {
                                         return <div key={index} className="order-item">
-                                            <img src={`${import.meta.env.VITE_BACKEND_URL}/images/${item.productImage}`} className='product-image' alt="Image" />
+                                            <img src={item.productImage} className='product-image' alt="Image" />
                                             <div className="item-info">
                                                 <p>{item.productName}</p>
                                                 <p>Qty: {item.quantity}</p>

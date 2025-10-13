@@ -315,7 +315,7 @@
   }
 }
 
-@media (max-width: 350px) {
+@media (max-width: 410px) {
   .login-popup-container {
     max-width: 300px;
   }

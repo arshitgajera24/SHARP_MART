@@ -225,7 +225,7 @@
 
   .profile-email,
   .member-since {
-    font-size: 10px;
+    font-size: 13px;
   }
 
   .profile-verification {
@@ -298,4 +298,17 @@
     flex: 1;
     justify-content: center;
   }
+
+  .profile-email,
+  .member-since {
+    font-size: 12px;
+  }
 }
+
+@media (max-width:300px) {
+    .profile-email,
+  .member-since {
+    font-size: 10px;
+  }
+}
+

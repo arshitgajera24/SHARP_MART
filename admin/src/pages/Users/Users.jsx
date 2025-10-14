@@ -87,7 +87,7 @@ const Users = () => {
                     {
                       user?.avatarUrl
                       ?   <img src={user?.avatarUrl} alt={user?.name} />
-                      :   <span>{user?.name?.charAt(0).toUpperCase()}</span>
+                      :   <span class='avatar-profile'>{user?.name?.charAt(0).toUpperCase()}</span>
                     }
                     <p className="name">{user.name}</p>
                     <p className="email">{user.email}</p>

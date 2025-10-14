@@ -49,6 +49,21 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
+.user-table-format span {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #ffe6e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 38px;
+  font-weight: 600;
+  color: tomato;
+  overflow: hidden;
+  border: 3px solid tomato;
+}
+
 .user-table-format button {
   border: none;
   padding: 6px 10px;

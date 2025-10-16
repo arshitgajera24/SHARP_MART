@@ -22,9 +22,11 @@
     gap: 30px;
     text-align: center;
     margin: 20px 0px;
-    overflow-x: scroll;
-    min-width: 100vw;
+    overflow-x: auto;
+    width: 100%;
+    min-width: 100%;
     padding: 0 10px;
+    box-sizing: border-box;
 }
 
 .explore-menu-list-item {

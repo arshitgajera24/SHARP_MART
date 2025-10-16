@@ -9,6 +9,7 @@
 .explore-menu h1 {
     color: #262626;
     font-weight: 500;
+    font-size: 12px !important;
 }
 
 .explore-menu-text {
@@ -17,6 +18,7 @@
 }
 
 .explore-menu-list {
+    position:absolute;
     display: flex;
     justify-content: flex-start;
     align-items: center;

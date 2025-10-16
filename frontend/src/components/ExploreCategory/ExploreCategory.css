@@ -17,6 +17,7 @@
 }
 
 .explore-menu-list {
+    position: relative;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -25,7 +26,7 @@
     margin: 20px 0px;
     overflow-x: auto;
     width: 100%;
-    min-width: 100%;
+    max-width: 100%;
     padding: 0 10px;
     box-sizing: border-box;
 }

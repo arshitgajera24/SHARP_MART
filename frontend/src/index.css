@@ -192,4 +192,9 @@ a {
   .app {
     width: 100%;
   }
+
+  body {
+    width: 100%;
+    overflow-x: hidden;
+  }
 }

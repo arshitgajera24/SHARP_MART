@@ -9,6 +9,9 @@
   scroll-behavior: smooth;
 }
 
+html, body {
+  overflow-x: hidden;
+
 body {
   min-height: 100vh;
   margin-top: 70px;
@@ -20,8 +23,10 @@ a {
 }
 
 .app {
-  width: 80%;
-  margin: auto;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 10px;
+  margin: 0 auto;
 }
 
 ::-webkit-scrollbar {

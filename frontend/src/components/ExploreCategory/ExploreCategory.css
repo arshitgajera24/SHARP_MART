@@ -21,7 +21,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 30px;
+    gap: 0;
     text-align: center;
     margin: 20px 0px;
     overflow-x: auto;
@@ -29,6 +29,10 @@
     max-width: 100%;
     padding: 0 10px;
     box-sizing: border-box;
+}
+
+.explore-menu-list-item:not(:last-child) {
+    margin-right: 30px;
 }
 
 .explore-menu-list-item {

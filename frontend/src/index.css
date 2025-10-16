@@ -12,11 +12,14 @@
 html, body {
   overflow-x: hidden;
   max-width: 100%;
+  width: 100%;
 }
 
 body {
   min-height: 100vh;
   margin-top: 70px;
+  position: relative;
+  overflow-x: hidden;
 }
 
 a {

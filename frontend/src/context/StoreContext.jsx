@@ -64,12 +64,36 @@ const StoreContextProvider = ({children}) => {
     const addToCart = async (itemId) => {
         if(user)
         {
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/cart/add`, {itemId}, {
-                withCredentials: true
-            })
+            setCartItems(prev => {
+              const existingItem = prev.find(item => item.product.id === itemId);
+              if (existingItem) {
+                return prev.map(item =>
+                  item.product.id === itemId
+                    ? { ...item, quantity: item.quantity + 1 }
+                    : item
+                );
+              } else {
+                const product = productList.find(p => p.id === itemId);
+                return [...prev, { id: Date.now(), quantity: 1, product }];
+              }
+            });
 
-            if (response.data.success) {
-                await loadCartData();
+            try 
+            {
+                const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/cart/add`, {itemId}, {
+                    withCredentials: true
+                })
+    
+                if (response.data.success) {
+                    await loadCartData();
+                } else {
+                    toast.error(response.data.error || "Failed to add item");
+                    await loadCartData();
+                }
+            } catch (error) {
+              console.error("Error adding to cart:", error);
+              toast.error("Network error while adding to cart");
+              await loadCartData();
             }
         }
         else
@@ -96,12 +120,30 @@ const StoreContextProvider = ({children}) => {
     const decreaseFromCart = async (itemId) => {
         if(user)
         {
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/cart/decrease`, {itemId}, {
-                withCredentials: true
-            })
+            setCartItems(prev =>
+                prev.map(item =>
+                    item.product.id === itemId
+                    ? { ...item, quantity: item.quantity - 1 }
+                    : item
+                ).filter(item => item.quantity > 0)
+            );
 
-            if (response.data.success) {
-                await loadCartData();
+            try 
+            {
+                const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/cart/decrease`, {itemId}, {
+                    withCredentials: true
+                })
+    
+                if (response.data.success) {
+                    await loadCartData();
+                } else {
+                    toast.error(response.data.error || "Failed to decrease item");
+                    await loadCartData();
+                }
+            } catch (error) {
+              console.error("Error decreasing from cart:", error);
+              toast.error("Network error while decreasing from cart");
+              await loadCartData();
             }
         }
         else
@@ -113,19 +155,30 @@ const StoreContextProvider = ({children}) => {
                     : item
                 ).filter(item => item.quantity > 0)
             );
-
         }
     }
 
     const removeFromCart = async (itemId) => {
         if(user)
         {
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/cart/remove`, {itemId}, {
-                withCredentials: true
-            })
+            setCartItems(prev => prev.filter(item => item.product.id !== itemId));
 
-            if (response.data.success) {
-                await loadCartData();
+            try
+            {
+                const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/cart/remove`, {itemId}, {
+                    withCredentials: true
+                })
+    
+                if (response.data.success) {
+                    await loadCartData();
+                } else {
+                    toast.error(response.data.error || "Failed to remove item");
+                    await loadCartData();
+                }
+            } catch (error) {
+              console.error("Error removing from cart:", error);
+              toast.error("Network error while removing from cart");
+              await loadCartData();
             }
         }
         else

@@ -16,6 +16,7 @@ import { StoreContext } from '../../context/StoreContext';
 const Profile = () => {
 
     const [isLoading, setIsLoading] = useState(false);
+    const [loaded, setLoaded] = useState(false);
     const {user, setUser, userData, fetchUserData} = useContext(StoreContext);
 
     const navigate = useNavigate();
@@ -83,7 +84,7 @@ const Profile = () => {
                                     <div className="avatar-placeholder">
                                         {
                                             userData?.avatarUrl
-                                            ?   <img src={userData?.avatarUrl} alt={userData?.name} />
+                                            ?   <img src={userData?.avatarUrl} alt={userData?.name} loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "filter 0.3s ease-out"}} />
                                             :   <span>{userData?.name?.charAt(0).toUpperCase()}</span>
                                         }
                                     </div>

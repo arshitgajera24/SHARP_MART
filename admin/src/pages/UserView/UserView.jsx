@@ -10,6 +10,7 @@ const UserView = () => {
 
     const [userDetails, setUserDetails] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [loaded, setLoaded] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
     const { userId } = location.state;
@@ -55,7 +56,7 @@ const UserView = () => {
         <div className="user-card">
             {
                 user?.avatarUrl
-                ?   <img src={user?.avatarUrl} alt={user?.name} />
+                ?   <img src={user?.avatarUrl} alt={user?.name} loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "all 0.3s ease-out"}} />
                 :   <span>{user?.name?.charAt(0).toUpperCase()}</span>
             }
             <div className="user-info">
@@ -102,7 +103,7 @@ const UserView = () => {
                                 {
                                     order.items.map((item, index) => {
                                         return <div key={index} className="order-item">
-                                            <img src={item.productImage} className='product-image' alt="Image" />
+                                            <img src={item.productImage} className='product-image' alt="Image" loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "all 0.3s ease-out"}} />
                                             <div className="item-info">
                                                 <p>{item.productName}</p>
                                                 <p>Qty: {item.quantity}</p>

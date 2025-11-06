@@ -11,6 +11,7 @@ import { StoreContext } from '../../context/StoreContext';
 const LoginPopup = ({setShowLogin}) => {
 
     const [currState, setCurrState] = useState("login");
+    const [loaded, setLoaded] = useState(false);
     const [rememberMe, setRememberMe] = useState(!!localStorage.getItem("rememberedEmail"));
     const [data, setData] = useState({
       name: "",
@@ -110,7 +111,7 @@ const LoginPopup = ({setShowLogin}) => {
     <div className='login-popup'>
       <form className="login-popup-container" onSubmit={onSubmitHandler}>
         <div className="left-side-image">
-          <img src={assets.login} alt="Login" fetchpriority="high" />
+          <img src={assets.login} alt="Login" fetchpriority="high" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "filter 0.3s ease-out"}} />
         </div>
 
         <div className="right-side-form">

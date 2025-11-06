@@ -13,7 +13,7 @@ const About = () => {
         </div>
       <div className="center grid grid-two--cols">
         <div className="about-image">
-          <img src={assets.about_logo} alt="Logo"/>
+          <img src={assets.about_logo} alt="Logo" loading="lazy" decoded="async"/>
         </div>
         <div className="about-text">
           <p>

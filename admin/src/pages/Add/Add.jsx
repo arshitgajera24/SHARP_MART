@@ -17,6 +17,7 @@ const Add = () => {
         isAvailable: false
     })
     const [isLoading, setIsLoading] = useState(false);
+    const [loaded, setLoaded] = useState(false);
 
     const onChangeHandler = (e) => {
         const name = e.target.name;
@@ -76,7 +77,7 @@ const Add = () => {
             <div className="add-img-upload flex-col">
                 <p>Upload Image</p>
                 <label htmlFor="image">
-                    <img src={data.image ? URL.createObjectURL(data.image) : assets.upload_area} alt="Upload Image" />
+                    <img src={data.image ? URL.createObjectURL(data.image) : assets.upload_area} alt="Upload Image" loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "all 0.3s ease-out"}} />
                 </label>
                 <input onChange={(e) => setData(data => ({...data, image: e.target.files[0]}))} type="file" id='image' name='image' hidden />
             </div>

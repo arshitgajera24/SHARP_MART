@@ -55,6 +55,7 @@
     cursor: pointer;
     border-radius: 50%;
     transition: 0.2s;
+    align-self: center;
 }
 
 .explore-menu-list-item p {

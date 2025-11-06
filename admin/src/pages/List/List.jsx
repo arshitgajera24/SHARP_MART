@@ -8,6 +8,7 @@ const List = () => {
 
     const [list, setList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [loaded, setLoaded] = useState(false);
 
     const navigate = useNavigate();
 
@@ -69,7 +70,7 @@ const List = () => {
           list.map((item, index) => {
             return (
               <div key={index} className='list-table-format'>
-                <img src={item.image} alt="Image" />
+                <img src={item.image} alt="Image" loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "all 0.3s ease-out"}} />
                 <p className="name">{item.name}</p>
                 <p className="category">{item.category}</p>
                 <p className="ratings">{item.ratings}</p>

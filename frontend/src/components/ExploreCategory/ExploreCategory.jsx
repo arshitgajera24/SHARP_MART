@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import "./ExploreCategory.css"
 import { categoryList } from '../../assets/assets.js'
 
 const ExploreCategory = ({category, setCategory}) => {
-
+  const [loaded, setLoaded] = useState(false);
   return (
     <div className='explore-menu'>
       <div>
@@ -14,7 +14,7 @@ const ExploreCategory = ({category, setCategory}) => {
         {
           categoryList.map((item, index) => {
             return <div onClick={() => setCategory(prev => prev===item.category ? "All" : item.category)} key={index} className="explore-menu-list-item">
-              <img className={category === item.category ? "active" : ""} src={item.categoryImage} alt="Item" />
+              <img className={category === item.category ? "active" : ""} src={item.categoryImage} alt="Item" loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "filter 0.3s ease-out"}} />
               <p>{item.categoryName}</p>
             </div>
           })

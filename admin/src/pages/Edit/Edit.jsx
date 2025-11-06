@@ -11,6 +11,7 @@ const Edit = () => {
     const location = useLocation();
     const curProduct = location.state;
     const [isLoading, setIsLoading] = useState(false);
+    const [loaded, setLoaded] = useState(false);
 
     const [data, setData] = useState({
         id: curProduct.id,
@@ -90,7 +91,7 @@ const Edit = () => {
                                     :   `${data.image}`
                                   ) 
                                 : assets.upload_area
-                            } alt="Upload Image" />
+                            } alt="Upload Image" loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "all 0.3s ease-out"}} />
                 </label>
                 <input onChange={(e) => setData(data => ({...data, image: e.target.files[0]}))} type="file" id='image' name='image' hidden />
             </div>

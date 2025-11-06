@@ -9,6 +9,7 @@ const Orders = () => {
 
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const fetchAllOrders = async () => {
     setIsLoading(true);
@@ -82,7 +83,7 @@ const Orders = () => {
                             {
                               order.items.map((item, index) => {
                                 return <div key={index}>
-                                  <img src={item.productImage} alt="Product" />
+                                  <img src={item.productImage} alt="Product" loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "all 0.3s ease-out"}} />
                                   <div className="item-details">
                                     <p className="item-name">{item.productName}</p>
                                     <p>&#8377; {item.productPrice} x {item.quantity}</p>

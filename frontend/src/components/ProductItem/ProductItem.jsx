@@ -14,7 +14,7 @@ const ProductItem = ({id, name, price, originalPrice, ratings, description, imag
     <div className='food-item'>
       <span className='category'>{category}</span>
       <div className="food-item-img-container">
-        <img className="food-item-image" src={image} alt={name} loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "filter 0.3s ease-out"}} />
+        <img className="food-item-image" src={image} alt={name} loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)"}} />
         {
             !cartItem
             ? <img className='add' onClick={() => addToCart(id)} src={assets.add_icon_white} alt="Add Item" />

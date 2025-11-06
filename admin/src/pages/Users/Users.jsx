@@ -10,6 +10,7 @@ const Users = () => {
 
   const [userList, setUserList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const navigate = useNavigate();
 
@@ -86,7 +87,7 @@ const Users = () => {
                   return <div key={index} className="user-table-format">
                     {
                       user?.avatarUrl
-                      ?   <img src={user?.avatarUrl} alt={user?.name} />
+                      ?   <img src={user?.avatarUrl} alt={user?.name} loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "all 0.3s ease-out"}} />
                       :   <span class='avatar-profile'>{user?.name?.charAt(0).toUpperCase()}</span>
                     }
                     <p className="name">{user.name}</p>

@@ -13,6 +13,7 @@ const MyOrders = () => {
 
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [loaded, setLoaded] = useState(false);
     const { user } = useContext(StoreContext);
     const navigate = useNavigate();
 
@@ -65,7 +66,7 @@ const MyOrders = () => {
 
                     return <div key={index} className="my-orders-order">
                         <div className="order-header">
-                            <img src={assets.parcel_icon} alt="Parcel Icon" />
+                            <img src={assets.parcel_icon} alt="Parcel Icon" loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "filter 0.3s ease-out"}} />
                             <div>
                                 <p><b>Order ID : </b>{order.orderId}</p>
                                 <p><b>Status : </b><span className={`status-text ${order.status.toLowerCase()}`}>{order.status}</span></p>
@@ -78,7 +79,7 @@ const MyOrders = () => {
                             {
                                 order.items.map((item, index) => {
                                     return <div key={index} className="order-item">
-                                        <img src={item.productImage} alt={item.productName} />
+                                        <img src={item.productImage} alt={item.productName} loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "filter 0.3s ease-out"}} />
                                         <p>{item.productName}</p>
                                         <p>&#8377; {item.productPrice} x {item.quantity}</p>
                                         <p><b>&#8377; {item.itemPrice}</b></p>

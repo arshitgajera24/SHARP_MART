@@ -110,7 +110,7 @@ const LoginPopup = ({setShowLogin}) => {
     <div className='login-popup'>
       <form className="login-popup-container" onSubmit={onSubmitHandler}>
         <div className="left-side-image">
-          <img src={assets.login} alt="Login" />
+          <img src={assets.login} alt="Login" fetchpriority="high" />
         </div>
 
         <div className="right-side-form">

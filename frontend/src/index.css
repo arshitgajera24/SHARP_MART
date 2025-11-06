@@ -84,6 +84,12 @@ a {
   100%{transform: rotate(1turn)}
 }
 
+.verify {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .loader-truck {
   width: fit-content;

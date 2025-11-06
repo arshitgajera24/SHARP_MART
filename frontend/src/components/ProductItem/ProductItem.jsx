@@ -5,7 +5,7 @@ import { StoreContext } from '../../context/StoreContext';
 import { useEffect } from 'react';
 
 const ProductItem = ({id, name, price, originalPrice, ratings, description, image, category}) => {
-  
+    const [loaded, setLoaded] = useState(false);
     const {cartItems, addToCart, decreaseFromCart} = useContext(StoreContext)
 
     const cartItem = cartItems.find(item => item.product.id === id);
@@ -14,7 +14,7 @@ const ProductItem = ({id, name, price, originalPrice, ratings, description, imag
     <div className='food-item'>
       <span className='category'>{category}</span>
       <div className="food-item-img-container">
-        <img className="food-item-image" src={image} alt={name} />
+        <img className="food-item-image" src={image} alt={name} loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "filter 0.3s ease-out"}} />
         {
             !cartItem
             ? <img className='add' onClick={() => addToCart(id)} src={assets.add_icon_white} alt="Add Item" />

@@ -68,7 +68,7 @@ const Profile = () => {
         <div className="container-header">
             {
                 userData
-                ?   <><h1 className="section-common--heading">My Profile</h1>
+                ?   <><h2 className="section-common--heading">My Profile</h2>
                     <p className='section-common-subheading'>Manage your account and personal details here.</p></>
                 :   <></>
             }

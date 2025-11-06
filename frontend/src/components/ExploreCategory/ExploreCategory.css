@@ -7,8 +7,9 @@
 
 .explore-menu-heading {
     color: #262626;
-    font-weight: 500;
-    font-size: 25px !important;
+    font-size: max(2vw, 24px);
+    font-weight: 600;
+    margin-bottom: 20px;
 }
 
 .explore-menu-text {

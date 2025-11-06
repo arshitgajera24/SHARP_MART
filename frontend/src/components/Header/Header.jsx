@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./Header.css"
 import { assets } from '../../assets/assets'
 import { Link } from 'react-router-dom'
 import AOS from 'aos'
 
 const Header = () => {
-
+  const [loaded, setLoaded] = useState(false);
   return (
     <div className='header'>
       <div className="container grid grid-two--cols">
@@ -18,7 +18,7 @@ const Header = () => {
 
         <div className="section-hero-image">
               <figure>
-                <img src={assets.logo_header} alt="Coding Language" width="80%" height="100%" />
+                <img src={assets.logo_header} alt="Coding Language" width="80%" height="100%" fetchpriority="high" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "filter 0.3s ease-out"}} />
               </figure>
         </div>
       </div>

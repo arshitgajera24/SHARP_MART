@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 const EditProfile = () => {
 
     const [isLoading, setIsLoading] = useState(false);
+    const [loaded, setLoaded] = useState(false);
     const {user, setUser, userData, fetchUserData} = useContext(StoreContext);
 
     const [data, setData] = useState({
@@ -116,10 +117,10 @@ const EditProfile = () => {
                         {
                             data.avatar
                             ?   <div className="avatar-placeholder">
-                                    <img src={data.avatar ? URL.createObjectURL(data.avatar) : assets.profile_icon} alt="" />
+                                    <img src={data.avatar ? URL.createObjectURL(data.avatar) : assets.profile_icon} alt="" loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "filter 0.3s ease-out"}} />
                                 </div>
                             :   userData?.avatarUrl
-                                ?   <img src={userData?.avatarUrl} alt={userData?.name} />
+                                ?   <img src={userData?.avatarUrl} alt={userData?.name} loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "filter 0.3s ease-out"}} />
                                 :   <span>{userData?.name?.charAt(0).toUpperCase()}</span>
                         }
                     </div>

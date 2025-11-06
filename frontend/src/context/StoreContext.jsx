@@ -2,6 +2,7 @@ import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useRef } from "react";
 
 export const StoreContext = createContext(null);
 
@@ -11,6 +12,7 @@ const StoreContextProvider = ({children}) => {
     const [user, setUser] = useState(undefined);
     const [productList, setProductList] = useState([]);
     const [userData, setUserData] = useState(null);
+    const syncTimeout = useRef(null);
     
     const navigate = useNavigate();
 
@@ -60,6 +62,13 @@ const StoreContextProvider = ({children}) => {
 
         return totalAmount;
     }
+    
+    const scheduleCartSync = () => {
+      if (syncTimeout.current) clearTimeout(syncTimeout.current);
+      syncTimeout.current = setTimeout(() => {
+        loadCartData();
+      }, 800);
+    };
 
     const addToCart = async (itemId) => {
         if(user)
@@ -85,15 +94,15 @@ const StoreContextProvider = ({children}) => {
                 })
     
                 if (response.data.success) {
-                    await loadCartData();
+                    scheduleCartSync();
                 } else {
                     toast.error(response.data.error || "Failed to add item");
-                    await loadCartData();
+                    scheduleCartSync();
                 }
             } catch (error) {
               console.error("Error adding to cart:", error);
               toast.error("Network error while adding to cart");
-              await loadCartData();
+              scheduleCartSync();
             }
         }
         else
@@ -135,15 +144,15 @@ const StoreContextProvider = ({children}) => {
                 })
     
                 if (response.data.success) {
-                    await loadCartData();
+                    scheduleCartSync();
                 } else {
                     toast.error(response.data.error || "Failed to decrease item");
-                    await loadCartData();
+                    scheduleCartSync();
                 }
             } catch (error) {
               console.error("Error decreasing from cart:", error);
               toast.error("Network error while decreasing from cart");
-              await loadCartData();
+              scheduleCartSync();
             }
         }
         else
@@ -170,15 +179,15 @@ const StoreContextProvider = ({children}) => {
                 })
     
                 if (response.data.success) {
-                    await loadCartData();
+                    scheduleCartSync();
                 } else {
                     toast.error(response.data.error || "Failed to remove item");
-                    await loadCartData();
+                    scheduleCartSync();
                 }
             } catch (error) {
               console.error("Error removing from cart:", error);
               toast.error("Network error while removing from cart");
-              await loadCartData();
+              scheduleCartSync();
             }
         }
         else

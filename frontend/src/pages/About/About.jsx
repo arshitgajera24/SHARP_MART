@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 import "./About.css"
 import { assets } from '../../assets/assets'
 
 const About = () => {
+  const [loaded, setLoaded] = useState(false);
+  
   return (
     <div className="about-box">
         <div className="container-header">
@@ -13,7 +15,7 @@ const About = () => {
         </div>
       <div className="center grid grid-two--cols">
         <div className="about-image">
-          <img src={assets.about_logo} alt="Logo" fetchpriority="high"/>
+          <img src={assets.about_logo} alt="Logo" fetchpriority="high" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "filter 0.3s ease-out"}}/>
         </div>
         <div className="about-text">
           <p>

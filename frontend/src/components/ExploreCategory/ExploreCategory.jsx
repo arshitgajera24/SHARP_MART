@@ -6,8 +6,10 @@ const ExploreCategory = ({category, setCategory}) => {
 
   return (
     <div className='explore-menu'>
-      <h2 className='explore-menu-heading'>Explore Menu</h2>
-      <p className='explore-menu-text'>Enjoy top quality, great value, and easy shopping all in one place.</p>
+      <div>
+        <h2 className='explore-menu-heading'>Explore Menu</h2>
+        <p className='explore-menu-text'>Enjoy top quality, great value, and easy shopping all in one place.</p>
+      </div>
       <div className="explore-menu-list">
         {
           categoryList.map((item, index) => {

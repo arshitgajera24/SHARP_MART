@@ -9,10 +9,11 @@ import { StoreContext } from '../../context/StoreContext'
 import { useEffect } from 'react'
 
 const Contact = () => {
-
+  
   const {user} = useContext(StoreContext);
   
   const [isLoading, setIsLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const [data, setData] = useState({
     fullName: "",
@@ -111,7 +112,7 @@ const Contact = () => {
           </form>
         </div>
         <div className="contact-map">
-            <img src={assets.about_logo} alt="Logo" />
+            <img src={assets.about_logo} alt="Logo" loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "filter 0.3s ease-out"}} />
         </div>
       </div>
     </div>

@@ -37,7 +37,7 @@
     width: 90%;
     height: 150px;
     object-fit: contain;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .food-item:hover .food-item-image {

@@ -121,7 +121,7 @@
 
 .footer-container a:hover {
   color: tomato;
-  transform: translateX(5px);
+  transform: scale(1.05);
 }
 
 

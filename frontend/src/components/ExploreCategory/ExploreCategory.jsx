@@ -14,7 +14,7 @@ const ExploreCategory = ({category, setCategory}) => {
         {
           categoryList.map((item, index) => {
             return <div onClick={() => setCategory(prev => prev===item.category ? "All" : item.category)} key={index} className="explore-menu-list-item">
-              <img className={category === item.category ? "active" : ""} src={item.categoryImage} alt="Item" loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "filter 0.3s ease-out"}} />
+              <img className={category === item.category ? "active" : ""} src={item.categoryImage} alt="Item" loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "all 0.3s ease-out"}} />
               <p>{item.categoryName}</p>
             </div>
           })

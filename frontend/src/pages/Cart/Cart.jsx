@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 const Cart = () => {
-
+    const [loaded, setLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const {cartItems, removeFromCart, decreaseFromCart, addToCart, getTotalCartAmount } = useContext(StoreContext);
 
@@ -75,7 +75,7 @@ const Cart = () => {
                         return (
                             <div key={index}>
                                 <div className="cart-items-title cart-items-item">
-                                    <img src={item.image} alt="Item Image" />
+                                    <img src={item.image} alt="Item Image" loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "filter 0.3s ease-out"}} />
                                     <p>{item.name}</p>
                                     <p>&#8377; {item.price}</p>
                                     <div className="stockElement">

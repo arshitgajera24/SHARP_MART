@@ -4,7 +4,7 @@ import * as orderServices from "../services/orderServices.js";
 import razorpay from "razorpay";
 import crypto from "crypto"
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+//const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const razorpayInstance = new razorpay({
     key_id: process.env.RAZOR_KEY_ID,

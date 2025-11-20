@@ -99,7 +99,7 @@ export const editProduct = async (req, res) => {
             description: req.body.description,
             ratings: req.body.ratings ? Number(req.body.ratings) : 0,
             price: req.body.price ? Number(req.body.price) : 0,
-            original_price: req.body.original_price ? Number(req.body.original_price) : 0,
+            originalPrice: req.body.original_price ? Number(req.body.original_price) : 0,
             isAvailable: req.body.isAvailable === "true" || req.body.isAvailable === true,
         };
 
@@ -111,7 +111,7 @@ export const editProduct = async (req, res) => {
             return res.json({ success: false, error: errors });
         }
 
-        const {id, name, category, description, price, original_price, ratings, isAvailable} = data;
+        const {id, name, category, description, price, originalPrice, ratings, isAvailable} = data;
 
         const oldProduct = await productServices.findProductById(id);
         if(!oldProduct)
@@ -138,7 +138,7 @@ export const editProduct = async (req, res) => {
             image_filename = uploadResult.secure_url;
         }
         
-        const productId = await productServices.findProductByIdAndUpdate({id, name, category, description, price, original_price, image: image_filename, ratings, isAvailable});
+        const productId = await productServices.findProductByIdAndUpdate({id, name, category, description, price, originalPrice, image: image_filename, ratings, isAvailable});
         return res.json({success: true, message: "Product Updated Successfully", productId});
     
     } catch (error) {

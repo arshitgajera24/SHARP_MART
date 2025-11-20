@@ -101,6 +101,8 @@
     font-size: 20px;
     font-weight: 600;
     margin: 0;
+    flex: 1;
+    word-wrap: break-word;
 }
 
 .food-item-name-rating p:last-child {
@@ -110,10 +112,14 @@
     font-size: 14px;
     margin: 0;
     font-weight: 400;
+    max-width: 100%;
+    flex-shrink: 0;
 }
 
 .food-item-name-rating img {
-    width: 65px;
+    width: 60px;
+    height: auto;
+    object-fit: contain;
 }
 
 .food-item-description {
@@ -141,6 +147,10 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         margin: 0;
+    }
+
+    .food-item-info {
+        padding: 10px 15px 20px 15px;
     }
 }
 

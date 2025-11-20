@@ -336,9 +336,9 @@ export const getFullDetailsByUserId = async (userId) => {
 
     const [summary] = await db.select({
         totalOrders: sql`COUNT(*)`.as("totalOrders"),
-        totalSpent: sql`COALESCE(SUM(${ordersTable.amount}), 0)`.as("totalSpent"),
+        totalSpent: sql`COALESCE(SUM(${ordersTable.amount + 100}), 0)`.as("totalSpent"),
         lastOrderDate: sql`TO_CHAR(MAX(${ordersTable.createdAt}), 'DD-MM-YYYY')`.as("lastOrderDate"),
-        lastOrderAmount: sql`(SELECT amount FROM ${ordersTable} WHERE ${ordersTable.userId} = ${userId} ORDER BY ${ordersTable.createdAt} DESC LIMIT 1)`.as("lastOrderAmount"),
+        lastOrderAmount: sql`(SELECT amount + 100 FROM ${ordersTable} WHERE ${ordersTable.userId} = ${userId} ORDER BY ${ordersTable.createdAt} DESC LIMIT 1)`.as("lastOrderAmount"),
     }).from(ordersTable).where(eq(ordersTable.userId, userId));
 
     const recentOrdersRows = await db.select({

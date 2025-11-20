@@ -39,8 +39,6 @@ const PlaceOrder = () => {
     setData(prev => ({...prev, [name]:value}));
   }
 
-  let orderId;
-
   const initPay = (order) => {
     const options = {
       key: import.meta.env.VITE_RAZOR_KEY_ID,

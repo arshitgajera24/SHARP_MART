@@ -30,8 +30,9 @@ export const placeOrder = async (req, res) => {
             return res.json({success: false, error: "Cart is Empty"});
         }
 
-        const totalAmount = (cartItems.reduce((sum, item) => sum + item.quantity * item.price, 0));        
-
+        const productsTotal = (cartItems.reduce((sum, item) => sum + item.quantity * item.price, 0));
+        const totalAmount = productsTotal + 100;
+        
         const orderId = await orderServices.addNewOrder({userId, amount: totalAmount, firstName, lastName, email, street, city, state, zipCode, country, phone, status });
 
         const orderItemsData = cartItems.map(item => ({
@@ -110,7 +111,8 @@ export const placeOrderCashOnDelivery = async (req, res) => {
             return res.json({success: false, error: "Cart is Empty"});
         }
 
-        const totalAmount = (cartItems.reduce((sum, item) => sum + item.quantity * item.price, 0));        
+        const productsTotal = (cartItems.reduce((sum, item) => sum + item.quantity * item.price, 0));
+        const totalAmount = productsTotal + 100;        
 
         const orderId = await orderServices.addNewOrder({userId, amount: totalAmount, firstName, lastName, email, street, city, state, zipCode, country, phone, status });
 

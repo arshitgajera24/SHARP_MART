@@ -34,7 +34,7 @@ export const addProduct = async (req, res) => {
             description: req.body.description,
             ratings: req.body.ratings ? Number(req.body.ratings) : 0,
             price: req.body.price ? Number(req.body.price) : 0,
-            originalPrice: req.body.original_price ? Number(req.body.original_price) : 0,
+            originalPrice: req.body.originalPrice ? Number(req.body.originalPrice) : 0,
             isAvailable: req.body.isAvailable === "true" || req.body.isAvailable === true,
         };
 
@@ -46,7 +46,7 @@ export const addProduct = async (req, res) => {
             return res.json({ success: false, error: errors });
         }
 
-        const {name, category, description, price, original_price, ratings,isAvailable} = data;
+        const {name, category, description, price, originalPrice, ratings,isAvailable} = data;
 
         const existing = await productServices.findProductByName(name);
 

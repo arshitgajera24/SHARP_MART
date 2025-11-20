@@ -33,6 +33,7 @@ app.use("/api/cart", verifyAuthentication, cartRouter);
 app.use("/api/order", orderRouter);
 app.use("/api/contact", contactRouter);
 app.use(githubRouter);
+app.use("/__internal", migrationRoute);
 
 
 app.get("/", (req, res) => {

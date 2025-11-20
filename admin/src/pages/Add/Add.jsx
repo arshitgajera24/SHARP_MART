@@ -37,7 +37,7 @@ const Add = () => {
         formData.append("category", data.category);
         formData.append("ratings", data.ratings);
         formData.append("price", data.price);
-        formData.append("originalPrice", data.original_price);
+        formData.append("originalPrice", data.originalPrice);
         formData.append("isAvailable", data.isAvailable);
 
 

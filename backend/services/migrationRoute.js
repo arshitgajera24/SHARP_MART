@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { migrate } from "drizzle-kit"; 
 
-const router = Router();
+export const migrationRoute = Router();
 
-router.get("/run-migrations", async (req, res) => {
+migrationRoute.get("/run-migrations", async (req, res) => {
     try {
         await migrate();
         res.send("Migrations completed!");
@@ -11,5 +11,3 @@ router.get("/run-migrations", async (req, res) => {
         res.status(500).send(err.message);
     }
 });
-
-export default router;

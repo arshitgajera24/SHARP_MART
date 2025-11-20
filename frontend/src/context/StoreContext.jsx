@@ -254,6 +254,7 @@ const StoreContextProvider = ({children}) => {
     }, [user])
 
     const contextValue = {
+        loadCartData,
         productList,
         cartItems,
         setCartItems,

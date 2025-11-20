@@ -53,7 +53,11 @@ const PlaceOrder = () => {
       handler: async (response) => {
         try {
           setIsLoading(true);
-          const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/order/verify`, response, {
+          response.userDetails = data;
+          const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/order/verify`, {
+            ...response,
+            userDetails: data,
+          }, {
               withCredentials: true,
           })
           if(res.data.success)
@@ -75,25 +79,8 @@ const PlaceOrder = () => {
       },
       modal: {
         ondismiss: async () => {
-          try {
-            setIsLoading(true);
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/order/cancel`, {orderId}, {
-                withCredentials: true,
-            })
-            if(response.data.success)
-            {
-              toast.success(response.data.message);
-              navigate("/cart");
-            }
-            else
-            {
-              toast.error(response.data.error);
-            }
-            setIsLoading(false);
-          } catch (error) {
-            console.log(error)
-            toast.error(error.message);
-          }
+          toast.error("Payment Cancelled");
+          navigate("/cart");
         }
       }
     }
@@ -108,7 +95,6 @@ const PlaceOrder = () => {
     const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/order/place`, data, {
       withCredentials: true
     });
-    orderId = response.data.orderId;
 
     if(response.data.success)
     {
@@ -131,6 +117,7 @@ const PlaceOrder = () => {
     if(response.data.success)
     {
       toast.success(response.data.message);
+      await loadCartData();
       navigate("/myorders");
     }
     else

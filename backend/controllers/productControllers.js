@@ -34,7 +34,7 @@ export const addProduct = async (req, res) => {
             description: req.body.description,
             ratings: req.body.ratings ? Number(req.body.ratings) : 0,
             price: req.body.price ? Number(req.body.price) : 0,
-            original_price: req.body.original_price ? Number(req.body.original_price) : 0,
+            originalPrice: req.body.original_price ? Number(req.body.original_price) : 0,
             isAvailable: req.body.isAvailable === "true" || req.body.isAvailable === true,
         };
 
@@ -54,7 +54,7 @@ export const addProduct = async (req, res) => {
             return res.json({ success: false, error: "Product already exists" });
         }
         
-        const productId = await productServices.addNewProduct({name, category, description, price, original_price, ratings, image: image_filename, isAvailable});
+        const productId = await productServices.addNewProduct({name, category, description, price, originalPrice, ratings, image: image_filename, isAvailable});
         res.json({success: true, message: "Product Added Successfully", productId});
     
     } catch (error) {

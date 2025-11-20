@@ -18,8 +18,8 @@ export const findProductById = async (productId) => {
 }
 
 export const findProductByName = async (productName) => {
-    const product = await db.select().from(productsTable).where(eq(productsTable.name, productName));
-    return product;
+    const [product] = await db.select().from(productsTable).where(eq(productsTable.name, productName));
+    return product && product;
 }
 
 export const findProductByIdAndDelete = async (productId) => {

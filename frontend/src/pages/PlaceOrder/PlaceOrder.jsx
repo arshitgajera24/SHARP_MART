@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const PlaceOrder = () => {
 
-  const {getTotalCartAmount, user, cartItems } = useContext(StoreContext);
+  const {getTotalCartAmount, user, cartItems, loadCartData } = useContext(StoreContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const itemsInCart = cartItems.map(cart => ({
@@ -59,6 +59,7 @@ const PlaceOrder = () => {
           if(res.data.success)
           {
             toast.success(res.data.message);
+            await loadCartData();
             navigate("/myorders");
           }
           else

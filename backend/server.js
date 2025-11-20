@@ -9,6 +9,7 @@ import { verifyAuthentication } from "./middleware/verifyUserMiddleware.js";
 import { cartRouter } from "./routes/cartRoute.js";
 import { orderRouter } from "./routes/orderRoute.js";
 import { contactRouter } from "./routes/contactRoute.js";
+import { migrationRoute } from "./routes/migrationRoute.js";
 dotenv.config();
 
 const app = express()

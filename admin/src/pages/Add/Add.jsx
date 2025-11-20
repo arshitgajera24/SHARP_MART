@@ -13,7 +13,7 @@ const Add = () => {
         category: "Vegetables",
         ratings: "",
         price: "",
-        original_price: "",
+        originalPrice: "",
         isAvailable: false
     })
     const [isLoading, setIsLoading] = useState(false);
@@ -37,7 +37,7 @@ const Add = () => {
         formData.append("category", data.category);
         formData.append("ratings", data.ratings);
         formData.append("price", data.price);
-        formData.append("original_price", data.original_price);
+        formData.append("originalPrice", data.original_price);
         formData.append("isAvailable", data.isAvailable);
 
 
@@ -53,7 +53,7 @@ const Add = () => {
                 category: "Vegetables",
                 ratings: "",
                 price: "",
-                original_price: "",
+                originalPrice: "",
                 isAvailable: false
             })
             toast.success(response.data.message);
@@ -112,7 +112,7 @@ const Add = () => {
                 </div>
                 <div className="add-original-price flex-col">
                     <p>Original Price</p>
-                    <input onChange={onChangeHandler} value={data.original_price} type="number" name='original_price' placeholder='Original Price'/>
+                    <input onChange={onChangeHandler} value={data.original_price} type="number" name='originalPrice' placeholder='Original Price'/>
                 </div>
             </div>
             <div className='add-availability'>

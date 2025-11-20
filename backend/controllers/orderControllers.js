@@ -22,8 +22,6 @@ export const placeOrder = async (req, res) => {
             return res.json({ success: false, error: errors });
         }
 
-        const { firstName, lastName, email, street, city, state, zipCode, country, phone, status } = data;
-
         const cartItems = await orderServices.getCartItemsByUserId(userId);
         if(!cartItems || cartItems.length === 0)
         {
@@ -33,17 +31,6 @@ export const placeOrder = async (req, res) => {
         const productsTotal = (cartItems.reduce((sum, item) => sum + item.quantity * item.price, 0));
         const totalAmount = productsTotal + 100;
         
-        const orderId = await orderServices.addNewOrder({userId, amount: totalAmount, firstName, lastName, email, street, city, state, zipCode, country, phone, status });
-
-        const orderItemsData = cartItems.map(item => ({
-            orderId,
-            productId: item.productId,
-            quantity: item.quantity,
-            price: item.price
-        }))
-
-        const orderItemId = await orderServices.addNewOrderItems(orderItemsData);
-
         const options = {
             amount: Math.round(Number(totalAmount) * 100),
             currency: "INR",
@@ -139,18 +126,44 @@ export const verifyOrder = async (req, res) => {
         const sign = razorpay_order_id + "|" + razorpay_payment_id;
         const expectedSign = crypto.createHmac("sha256", process.env.RAZOR_KEY_SECRET).update(sign).digest("hex");
 
-        const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id);
-        if(expectedSign === razorpay_signature)
+        if(expectedSign !== razorpay_signature)
         {
-            await orderServices.findOrderByIdAndUpdatePayment(orderInfo.receipt);
-            await orderServices.emptyCartDataByUserId(req.user.id);
-            return res.json({success: true, message: "Payment Successful"})
+            return res.json({ success: false, error: "Invalid payment signature" });
         }
-        else
-        {
-            const orderDelete = await orderServices.findOrderByIdAndDelete(orderInfo.receipt);
-            return res.json({success: false, error: "Payment Failed"});
-        }
+
+        const userId = req.user.id;
+        const cartItems = await orderServices.getCartItemsByUserId(userId);
+
+        const productsTotal = cartItems.reduce((sum, item) => sum + item.quantity * item.price, 0);
+        const totalAmount = productsTotal + 100;
+
+        const orderId = await orderServices.addNewOrder({
+            userId,
+            amount: totalAmount,
+            firstName: userDetails.firstName,
+            lastName: userDetails.lastName,
+            email: userDetails.email,
+            street: userDetails.street,
+            city: userDetails.city,
+            state: userDetails.state,
+            zipCode: userDetails.zipCode,
+            country: userDetails.country,
+            phone: userDetails.phone,
+            status: userDetails.status,
+            payment: true,
+        });
+
+        const orderItemsData = cartItems.map(item => ({
+            orderId,
+            productId: item.productId,
+            quantity: item.quantity,
+            price: item.price
+        }));
+
+        await orderServices.addNewOrderItems(orderItemsData);
+        await orderServices.emptyCartDataByUserId(userId);
+
+        return res.json({ success: true, message: "Payment Successful" });
 
     } catch (error) {
         console.error(error);
@@ -175,20 +188,6 @@ export const verifyOrder = async (req, res) => {
     //     console.error(error);
     //     res.json({ success: false, error: error.message });
     // }
-}
-
-export const cancelOrder = async (req, res) => {
-    try {
-        const {orderId} = req.body;
-        if (!orderId) return res.json({ success: false, error: "Order ID required" });
-
-        const orderDelete = await orderServices.findOrderByIdAndDelete(orderId);
-        res.json({success: true, message: "Payment Cancelled, Order not Placed"});
-
-    } catch (error) {
-        console.error(error);
-        res.json({ success: false, error: error.message });
-    }
 }
 
 export const userOrders = async (req, res) => {

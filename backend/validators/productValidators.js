@@ -8,7 +8,7 @@ export const addProductValidatorSchema = z.object({
     description: z.string().trim().min(1, {message: "Description is Required"}).max(500, {message: "Description Must be no more than 500 Characters"}),
     ratings: z.coerce.number({ invalid_type_error: "Ratings must be a number" }).min(1, { message: "Ratings must be at least 1" }).max(5, { message: "Rating must be no more than 5" }),
     price: z.coerce.number({ invalid_type_error: "Price must be a number" }).min(0.01, { message: "Price must be at least 0.01" }).max(100000, { message: "Price must be no more than 100000" }),
-    originalPrice‎: z.coerce.number({ invalid_type_error: "Original Price must be a number" }).min(0.01, { message: "Original Price must be at least 0.01" }).max(100000, { message: "Price must be no more than 100000" }),
+    originalPrice: z.coerce.number({ invalid_type_error: "Original Price must be a number" }).min(0.01, { message: "Original Price must be at least 0.01" }).max(100000, { message: "Price must be no more than 100000" }),
     isAvailable: z.coerce.boolean(),
 })
 

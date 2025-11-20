@@ -10,4 +10,3 @@ orderRouter.route("/userorders").post(verifyAuthentication, orderControllers.use
 orderRouter.route("/list").get(orderControllers.listOrders);
 orderRouter.route("/status").post(orderControllers.updateStatus);
 orderRouter.route("/cod").post(verifyAuthentication, orderControllers.placeOrderCashOnDelivery);
-orderRouter.route("/cancel").post(verifyAuthentication, orderControllers.cancelOrder);

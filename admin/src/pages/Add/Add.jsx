@@ -112,7 +112,7 @@ const Add = () => {
                 </div>
                 <div className="add-original-price flex-col">
                     <p>Original Price</p>
-                    <input onChange={onChangeHandler} value={data.original_price} type="number" name='originalPrice' placeholder='Original Price'/>
+                    <input onChange={onChangeHandler} value={data.originalPrice} type="number" name='originalPrice' placeholder='Original Price'/>
                 </div>
             </div>
             <div className='add-availability'>

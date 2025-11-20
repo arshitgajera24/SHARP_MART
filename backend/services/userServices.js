@@ -304,7 +304,7 @@ export const getAllUsersList = async () => {
         updatedAt: sql`TO_CHAR(${usersTable.updatedAt}, 'DD-MM-YYYY')`,
         providers: sql`COALESCE(STRING_AGG(DISTINCT ${oauthAccountsTable.provider}::text, ','), 'local')`.as("providers"),
         totalOrders: sql`COUNT(DISTINCT ${ordersTable.id})`.as("totalOrders"),
-        totalSpent: sql`COALESCE(SUM(${ordersTable.amount}+100), 0)`.as("totalSpent"),
+        totalSpent: sql`COALESCE(SUM(${ordersTable.amount}), 0)`.as("totalSpent"),
         activeSession: sql`CASE WHEN EXISTS(SELECT 1 FROM ${sessionsTable} WHERE ${sessionsTable.userId} = ${usersTable.id} AND ${sessionsTable.valid} = TRUE) THEN 'Active' ELSE 'Offline' END`.as("activeSession"),
     }).from(usersTable).leftJoin(oauthAccountsTable, eq(usersTable.id, oauthAccountsTable.userId)).leftJoin(ordersTable, eq(usersTable.id, ordersTable.userId)).leftJoin(sessionsTable, eq(usersTable.id, sessionsTable.userId)).groupBy(usersTable.id).orderBy(sql`${usersTable.createdAt} DESC`);
 
@@ -336,14 +336,14 @@ export const getFullDetailsByUserId = async (userId) => {
 
     const [summary] = await db.select({
         totalOrders: sql`COUNT(*)`.as("totalOrders"),
-        totalSpent: sql`COALESCE(SUM(${ordersTable.amount + 100}), 0)`.as("totalSpent"),
+        totalSpent: sql`COALESCE(SUM(${ordersTable.amount}), 0)`.as("totalSpent"),
         lastOrderDate: sql`TO_CHAR(MAX(${ordersTable.createdAt}), 'DD-MM-YYYY')`.as("lastOrderDate"),
         lastOrderAmount: sql`(SELECT amount FROM ${ordersTable} WHERE ${ordersTable.userId} = ${userId} ORDER BY ${ordersTable.createdAt} DESC LIMIT 1)`.as("lastOrderAmount"),
     }).from(ordersTable).where(eq(ordersTable.userId, userId));
 
     const recentOrdersRows = await db.select({
         id: ordersTable.id,
-        amount: sql`${ordersTable.amount} + 100`.as("amount"),
+        amount: sql`${ordersTable.amount}`.as("amount"),
         status: ordersTable.status,
         createdAt: ordersTable.createdAt
     }).from(ordersTable).where(eq(ordersTable.userId, userId)).orderBy(sql`${ordersTable.createdAt} DESC`).limit(5);

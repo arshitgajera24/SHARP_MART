@@ -2,8 +2,8 @@ import { eq } from "drizzle-orm";
 import { db } from "../config/db.js"
 import { productsTable } from "../drizzle/schema.js";
 
-export const addNewProduct = async ({name, category, description, price, original_price, ratings, image, isAvailable}) => {
-    const [product] = await db.insert(productsTable).values({name, category, description, price, originalPrice: original_price, ratings, image, isAvailable}).returning({ id: productsTable.id });
+export const addNewProduct = async ({name, category, description, price, originalPrice, ratings, image, isAvailable}) => {
+    const [product] = await db.insert(productsTable).values({name, category, description, price, originalPrice, ratings, image, isAvailable}).returning({ id: productsTable.id });
     return product;
 }
 
@@ -26,13 +26,13 @@ export const findProductByIdAndDelete = async (productId) => {
     return await db.delete(productsTable).where(eq(productsTable.id, productId));
 }
 
-export const findProductByIdAndUpdate = async ({id, name, category, description, price, original_price, ratings, image, isAvailable}) => {
+export const findProductByIdAndUpdate = async ({id, name, category, description, price, originalPrice, ratings, image, isAvailable}) => {
     const [product] = await db.update(productsTable).set({
         name,
         category,
         description,
         price,
-        originalPrice: original_price,
+        originalPrice,
         ratings,
         image,
         isAvailable

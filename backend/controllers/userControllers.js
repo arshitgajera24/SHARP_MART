@@ -208,6 +208,15 @@ export const postEditProfile = async (req, res) => {
 
         const file = req.file;
 
+        if (!file) {
+            await userServices.EditUserProfile({
+                userId: req.user.id,
+                name,
+                avatarUrl: undefined
+            });
+            return res.json({ success: true, message: "Profile Updated Successfully" });
+        }
+
         const uploadToCloudinary = (buffer) => {
             return new Promise((resolve, reject) => {
                 const stream = cloudinary.uploader.upload_stream(

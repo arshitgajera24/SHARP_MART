@@ -121,7 +121,11 @@ export const placeOrderCashOnDelivery = async (req, res) => {
 
 export const verifyOrder = async (req, res) => {
     try {
-        const {razorpay_order_id, razorpay_payment_id, razorpay_signature} = req.body;
+        const {razorpay_order_id, razorpay_payment_id, razorpay_signature, userDetails} = req.body;
+
+        if (!userDetails) {
+            return res.json({ success: false, error: "User details missing" });
+        }
 
         const sign = razorpay_order_id + "|" + razorpay_payment_id;
         const expectedSign = crypto.createHmac("sha256", process.env.RAZOR_KEY_SECRET).update(sign).digest("hex");

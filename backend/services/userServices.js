@@ -303,8 +303,8 @@ export const getAllUsersList = async () => {
         createdAt: sql`TO_CHAR(${usersTable.createdAt}, 'DD-MM-YYYY')`,
         updatedAt: sql`TO_CHAR(${usersTable.updatedAt}, 'DD-MM-YYYY')`,
         providers: sql`COALESCE(STRING_AGG(DISTINCT ${oauthAccountsTable.provider}::text, ','), 'local')`.as("providers"),
-        totalOrders: sql`(SELECT COUNT(*) FROM ${ordersTable} o2 WHERE o2.userId = ${usersTable.id})`.as("totalOrders"),
-        totalSpent: sql`(SELECT COALESCE(SUM(o.amount), 0) FROM ${ordersTable} o WHERE o.userId = ${usersTable.id})`.as("totalSpent"),
+        totalOrders: sql`(SELECT COUNT(*) FROM ${ordersTable} o2 WHERE o2.user_id = ${usersTable.id})`.as("totalOrders"),
+        totalSpent: sql`(SELECT COALESCE(SUM(o.amount), 0) FROM ${ordersTable} o WHERE o.user_id = ${usersTable.id})`.as("totalSpent"),
         activeSession: sql`CASE WHEN EXISTS(SELECT 1 FROM ${sessionsTable} WHERE ${sessionsTable.userId} = ${usersTable.id} AND ${sessionsTable.valid} = TRUE) THEN 'Active' ELSE 'Offline' END`.as("activeSession"),
     }).from(usersTable).leftJoin(oauthAccountsTable, eq(usersTable.id, oauthAccountsTable.userId)).leftJoin(ordersTable, eq(usersTable.id, ordersTable.userId)).leftJoin(sessionsTable, eq(usersTable.id, sessionsTable.userId)).groupBy(usersTable.id).orderBy(sql`${usersTable.createdAt} DESC`);
 

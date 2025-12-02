@@ -34,12 +34,12 @@ export const placeOrder = async (req, res) => {
         const options = {
             amount: Math.round(Number(totalAmount) * 100),
             currency: "INR",
-            receipt: String(orderId),
+            receipt: "receipt_"+Date.now(),
         }
 
         const order = await razorpayInstance.orders.create(options);
 
-        res.json({ success: true, data: order, orderId });
+        res.json({ success: true, data: order, orderId: order.id });
 
         // const line_items = cartItems.map((item) => ({
         //     price_data: {

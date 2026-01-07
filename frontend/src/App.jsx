@@ -23,7 +23,7 @@ import ScrollToHashElement from "./components/ScrollToHashElement";
 const App = () => {
 
   const [showLogin, setShowLogin] = useState(false);
-  // Nothing
+  
 
   useEffect(() => {
     if (showLogin) {

@@ -5,7 +5,7 @@ const sql = postgres(process.env.DATABASE_URL,{
   ssl: {
     rejectUnauthorized: false
   },
-  { prepare: false }
+  prepare: false
 });
 
 export const db = drizzle(sql);

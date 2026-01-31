@@ -45,7 +45,7 @@ const Home = () => {
   return (
     <div>
       <SEO 
-        title="SHARP MART | Home" 
+        title="Home" 
         description="Welcome to SHARP MART, your one-stop shop for everything!" 
         keywords="Sharp Mart, Sharp Mart Grocery, Online Grocery, Fresh Produce, Daily Essentials, Sharp Mart Delivery, Supermarket, Grocery Shopping"
       />

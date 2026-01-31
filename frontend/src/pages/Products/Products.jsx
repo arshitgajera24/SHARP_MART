@@ -32,7 +32,7 @@ const Products = () => {
     <div className="section-products" id="p1">
       <div className="container-header">
         <SEO
-          title="SHARP MART | Products"
+          title="Products"
           description="Explore our wide range of quality products at the best prices."
           keywords="Sharp Mart Products, Buy Groceries Online, Fresh Vegetables, Pantry Staples, Sharp Mart Deals, Sharp Mart Grocery"
         />

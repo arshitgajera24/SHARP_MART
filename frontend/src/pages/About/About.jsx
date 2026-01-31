@@ -9,7 +9,7 @@ const About = () => {
   return (
     <div className="about-box">
       <SEO
-        title="SHARP MART | About Us"
+        title="About Us"
         description="Learn more about SHARP MART, our mission, and our values."
         keywords="About Sharp Mart, Sharp Mart Story, Grocery Store History, Sharp Mart Mission, Sharp Mart Grocery"
       />

@@ -73,7 +73,7 @@ const Contact = () => {
   return (
     <div className="section-contact">
       <SEO
-        title="SHARP MART | Contact Us"
+        title="Contact Us"
         description="Get in touch with SHARP MART for any queries or support."
         keywords="Contact Sharp Mart, Sharp Mart Customer Care, Sharp Mart Support, Grocery Store Location, Sharp Mart Grocery"
       />

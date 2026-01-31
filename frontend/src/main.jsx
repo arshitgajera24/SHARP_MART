@@ -1,4 +1,5 @@
 import { createRoot } from 'react-dom/client'
+import { HelmetProvider } from 'react-helmet-async';
 import './index.css'
 import {BrowserRouter} from "react-router-dom";
 import App from './App.jsx'
@@ -7,13 +8,14 @@ import StoreContextProvider from './context/StoreContext.jsx';
 import {ToastContainer} from "react-toastify";
 
 createRoot(document.getElementById('root')).render(
+  <HelmetProvider>
   <BrowserRouter>
     <StoreContextProvider>
       <App />
       <ToastContainer
               bodyClassName="toastBody"
               position="top-right"
-              autoClose={3000}
+              autoClose={2000}
               hideProgressBar={false}
               newestOnTop={false}
               closeOnClick={false}
@@ -25,4 +27,5 @@ createRoot(document.getElementById('root')).render(
               />
     </StoreContextProvider>
   </BrowserRouter>
+  </HelmetProvider>
 )

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import SEO from '../../components/SEO'
 import "./Products.css"
 import ProductDisplay from '../../components/ProductDisplay/ProductDisplay'
 import { useLocation } from 'react-router-dom';
@@ -28,67 +29,121 @@ const Products = () => {
     }
 
   return (
-    <div className='section-products' id="p1">
-        <div className="container-header">
-            <h1 className="section-common--heading">Products</h1>
-            <p className="section-common-subheading">
-                Quality products at the best prices.
-            </p>
-        </div>
-        
-        <div className="products-container">
-          <aside className="products-sidebar">
-            <h3>Categories</h3>
-            <ul className="category-list">
-              {
-                categories.map((cat, index) => {
-                  return <li key={index} className={category === cat ? "active" : ""} onClick={() => setCategory(cat)}> {cat} </li>
-                })
-              }
-            </ul>
+    <div className="section-products" id="p1">
+      <div className="container-header">
+        <SEO
+          title="SHARP MART | Products"
+          description="Explore our wide range of quality products at the best prices."
+          keywords="Sharp Mart Products, Buy Groceries Online, Fresh Vegetables, Pantry Staples, Sharp Mart Deals, Sharp Mart Grocery"
+        />
+        <h1 className="section-common--heading">Products</h1>
+        <p className="section-common-subheading">
+          Quality products at the best prices.
+        </p>
+      </div>
 
-            <select className="category-select" value={category} onChange={(e) => setCategory(e.target.value)}>
-              {
-                categories.map((cat, index) => {
-                  return <option key={index} value={cat}>
-                    {cat}
-                  </option>
-                })
-              }
-            </select>
+      <div className="products-container">
+        <aside className="products-sidebar">
+          <h3>Categories</h3>
+          <ul className="category-list">
+            {categories.map((cat, index) => {
+              return (
+                <li
+                  key={index}
+                  className={category === cat ? "active" : ""}
+                  onClick={() => setCategory(cat)}
+                >
+                  {" "}
+                  {cat}{" "}
+                </li>
+              );
+            })}
+          </ul>
 
-            <h3>Sort by Price</h3>
-            <select value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
-              <option value="">Default</option>
-              <option value="lowToHigh">Low → High</option>
-              <option value="highToLow">High → Low</option>
-            </select>
-            
-            <h3>Minimum Rating</h3>
-            <div className="rating-filters">
-              <label>
-                <input type="radio" checked={minRating === 0} onChange={() => setMinRating(0)} /> All
-              </label>
-              <label>
-                <input type="radio" checked={minRating === 4} onChange={() => setMinRating(4)} /> 4★ & Above
-              </label>
-              <label>
-                <input type="radio" checked={minRating === 2} onChange={() => setMinRating(2)} /> 2★ & Above
-              </label>
-            </div>
+          <select
+            className="category-select"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            {categories.map((cat, index) => {
+              return (
+                <option key={index} value={cat}>
+                  {cat}
+                </option>
+              );
+            })}
+          </select>
 
-            <h3>Price Range</h3>
-            <div className="price-range">
-              <input type="number" min="0" max="10000" value={priceRange[0]} onChange={(e) => handlePriceChange(e, 0)} placeholder='Min' />
-              <span>to</span>
-              <input type="number" min="0" max="10000" value={priceRange[1]} onChange={(e) => handlePriceChange(e, 1)} placeholder='Max' />
-            </div>
-          </aside>
-        
-        <ProductDisplay category={category} searchQuery={searchQuery} sortOption={sortOption} minRating={minRating} priceRange={priceRange}  />
+          <h3>Sort by Price</h3>
+          <select
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+          >
+            <option value="">Default</option>
+            <option value="lowToHigh">Low → High</option>
+            <option value="highToLow">High → Low</option>
+          </select>
+
+          <h3>Minimum Rating</h3>
+          <div className="rating-filters">
+            <label>
+              <input
+                type="radio"
+                checked={minRating === 0}
+                onChange={() => setMinRating(0)}
+              />{" "}
+              All
+            </label>
+            <label>
+              <input
+                type="radio"
+                checked={minRating === 4}
+                onChange={() => setMinRating(4)}
+              />{" "}
+              4★ & Above
+            </label>
+            <label>
+              <input
+                type="radio"
+                checked={minRating === 2}
+                onChange={() => setMinRating(2)}
+              />{" "}
+              2★ & Above
+            </label>
+          </div>
+
+          <h3>Price Range</h3>
+          <div className="price-range">
+            <input
+              type="number"
+              min="0"
+              max="10000"
+              value={priceRange[0]}
+              onChange={(e) => handlePriceChange(e, 0)}
+              placeholder="Min"
+            />
+            <span>to</span>
+            <input
+              type="number"
+              min="0"
+              max="10000"
+              value={priceRange[1]}
+              onChange={(e) => handlePriceChange(e, 1)}
+              placeholder="Max"
+            />
+          </div>
+        </aside>
+
+        <ProductDisplay
+          category={category}
+          searchQuery={searchQuery}
+          sortOption={sortOption}
+          minRating={minRating}
+          priceRange={priceRange}
+        />
       </div>
     </div>
-  )
+  );
 }
 
 export default Products

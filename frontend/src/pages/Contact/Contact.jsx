@@ -1,4 +1,5 @@
 import React from 'react'
+import SEO from '../../components/SEO'
 import "./Contact.css"
 import { assets } from '../../assets/assets'
 import { useState } from 'react'
@@ -71,6 +72,11 @@ const Contact = () => {
 
   return (
     <div className="section-contact">
+      <SEO
+        title="SHARP MART | Contact Us"
+        description="Get in touch with SHARP MART for any queries or support."
+        keywords="Contact Sharp Mart, Sharp Mart Customer Care, Sharp Mart Support, Grocery Store Location, Sharp Mart Grocery"
+      />
       <div className="container-header">
         <h2 className="section-common--heading">Contact Us</h2>
         <p className="section-common-subheading">
@@ -82,41 +88,82 @@ const Contact = () => {
         <div className="contact-content">
           <form method="post" onSubmit={onSubmitHandler}>
             <div className="name-email grid grid-two-cols mb-3">
-
               <div>
                 <label htmlFor="fullName">Full Name</label>
-                <input onChange={onChangeHandler} value={data.fullName} type="text" name="fullName" id="fullName" autoComplete="off" placeholder="Enter Full Name"/>
+                <input
+                  onChange={onChangeHandler}
+                  value={data.fullName}
+                  type="text"
+                  name="fullName"
+                  id="fullName"
+                  autoComplete="off"
+                  placeholder="Enter Full Name"
+                />
               </div>
-              
 
               <div>
                 <label htmlFor="email">Email Address</label>
-                <input onChange={onChangeHandler} value={data.email} type="text" name="email" id="email" autoComplete="off" placeholder="Your Email Address"/>
+                <input
+                  onChange={onChangeHandler}
+                  value={data.email}
+                  type="text"
+                  name="email"
+                  id="email"
+                  autoComplete="off"
+                  placeholder="Your Email Address"
+                />
               </div>
             </div>
 
             <div className="mb-3">
               <label htmlFor="subject">Subject</label>
-              <input onChange={onChangeHandler} value={data.subject} type="text" name="subject" id="subject" autoComplete="off" placeholder="Title of Your Message"/>
+              <input
+                onChange={onChangeHandler}
+                value={data.subject}
+                type="text"
+                name="subject"
+                id="subject"
+                autoComplete="off"
+                placeholder="Title of Your Message"
+              />
             </div>
 
             <div className="mb-3">
               <label htmlFor="message">Message</label>
-              <textarea onChange={onChangeHandler} value={data.message} name="message" id="message " cols="30" rows="10" placeholder="We are Always Here to Help You."></textarea>
+              <textarea
+                onChange={onChangeHandler}
+                value={data.message}
+                name="message"
+                id="message "
+                cols="30"
+                rows="10"
+                placeholder="We are Always Here to Help You."
+              ></textarea>
             </div>
 
             <div className="mt-3">
-              <button type="submit" className="btn contact-btn">SEND MESSAGE</button>
+              <button type="submit" className="btn contact-btn">
+                SEND MESSAGE
+              </button>
             </div>
-
           </form>
         </div>
         <div className="contact-map">
-            <img src={assets.about_logo} alt="Logo" loading='lazy' decoding="async" onLoad={() => setLoaded(true)} style={{filter: loaded ? "none" : "blur(20px)", transition: "filter 0.3s ease-out"}} />
+          <img
+            src={assets.about_logo}
+            alt="Logo"
+            loading="lazy"
+            decoding="async"
+            onLoad={() => setLoaded(true)}
+            style={{
+              filter: loaded ? "none" : "blur(20px)",
+              transition: "filter 0.3s ease-out",
+            }}
+          />
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Contact

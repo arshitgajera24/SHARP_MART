@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import SEO from '../../components/SEO'
 import "./Home.css"
 import Header from '../../components/Header/Header'
 import AppDownload from '../../components/AppDownload/AppDownload'
@@ -43,6 +44,11 @@ const Home = () => {
 
   return (
     <div>
+      <SEO 
+        title="SHARP MART | Home" 
+        description="Welcome to SHARP MART, your one-stop shop for everything!" 
+        keywords="Sharp Mart, Sharp Mart Grocery, Online Grocery, Fresh Produce, Daily Essentials, Sharp Mart Delivery, Supermarket, Grocery Shopping"
+      />
       <Header />
       <ExploreCategory category={category} setCategory={setCategory} />
       <ProductDisplay category={category} searchQuery="" sortOption="" minRating={0} priceRange={["", ""]}  />

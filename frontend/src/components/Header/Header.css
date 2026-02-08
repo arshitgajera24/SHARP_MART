@@ -106,6 +106,10 @@
   box-shadow: 0 4px 12px rgba(255, 99, 71, 0.4);
   transform: scale(1);
   transition: all 0.3s ease;
+  align-self: flex-start;
+  width: fit-content;
+  max-width: 100%;
+  white-space: nowrap;
 }
 
 .hero-btn:hover {
@@ -208,6 +212,7 @@
   .header-contents {
     max-width: 100%;
     margin: 0 auto;
+    align-items: center;
   }
 
   .hero-heading {
@@ -273,10 +278,9 @@
   }
 
   .hero-btn {
-    width: 100%;
     justify-content: center;
-    padding: 10px 16px;
-    font-size: 0.85rem;
+    padding: 10px 20px;
+    font-size: 0.9rem;
   }
 
   .section-hero-image img {

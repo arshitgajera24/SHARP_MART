@@ -1,6 +1,7 @@
 .header {
-  height: 90vh;
+  height: 85vh;
   min-height: 500px;
+  max-height: 700px;
   position: relative;
   border-radius: 40px 40px 0 0;
   background-image: linear-gradient(
@@ -13,7 +14,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem clamp(1.5rem, 5vw, 6rem);
+  padding: 3rem clamp(1.5rem, 5vw, 6rem);
   overflow: hidden;
 }
 
@@ -25,7 +26,6 @@
   max-width: 1300px;
   width: 100%;
   margin: 0 auto;
-  margin-top: -80px;
   padding: 0 clamp(0.75rem, 2vw, 1rem);
 }
 
@@ -34,23 +34,40 @@
   width: 100%;
   z-index: 2;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .hero-heading {
   font-size: clamp(1.75rem, 4.5vw, 3rem);
   line-height: 1.25;
-  margin: 0.75rem 0;
+  margin: 0.5rem 0;
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
   color: white;
 }
 
+.section-hero-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.section-hero-image figure {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
 .section-hero-image img {
   max-width: 90%;
   height: auto;
   display: block;
-  margin: 0 auto;
 }
 
 .hero-subheading {
@@ -62,10 +79,11 @@
     font-weight: 400;
     overflow-wrap: break-word;
     line-height: 1.4;
+    margin-bottom: 0.5rem;
 }
 
 .hero-para {
-    margin: 1.25rem 0 2.5rem 0;
+    margin: 1rem 0 2rem 0;
     color: #f6eedf;
     font-size: clamp(0.85rem, 1.4vw, 0.95rem);
     line-height: 1.6;

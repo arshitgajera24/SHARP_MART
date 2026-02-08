@@ -36,6 +36,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-bottom: 2rem;
 }
 
 .hero-heading {
@@ -94,7 +95,7 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  padding: clamp(12px, 1.5vw, 14px) clamp(24px, 3vw, 28px);
+  padding: clamp(10px, 1.2vw, 12px) clamp(24px, 3vw, 28px);
   background: white;
   color: tomato;
   font-size: clamp(0.9rem, 1.2vw, 1rem);
@@ -104,10 +105,12 @@
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(255, 99, 71, 0.4);
   transition: all 0.3s ease;
-  align-self: center;
+  align-self: flex-start;
   width: fit-content;
   max-width: 90%;
   white-space: nowrap;
+  position: relative;
+  z-index: 3;
 }
 
 .hero-btn:hover {
@@ -126,6 +129,7 @@
   overflow: hidden;
   line-height: 0;
   transform: rotate(180deg);
+  z-index: 1;
 }
 
 .custom-shape-divider-bottom-1696038172 svg {
@@ -221,6 +225,10 @@
   .hero-subheading {
     font-size: clamp(0.7rem, 1.6vw, 1rem);
     letter-spacing: clamp(0.02rem, 0.4vw, 0.08rem);
+  }
+
+  .hero-btn {
+    align-self: center;
   }
 
   .section-hero-image img {

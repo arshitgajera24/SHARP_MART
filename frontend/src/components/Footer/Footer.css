@@ -5,7 +5,7 @@
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
               rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   border-radius: 0.2rem;
-  padding: 0 5rem;
+  padding: 0 clamp(2rem, 4vw, 5rem);
   background-color: #ffffff;
   position: relative;
   z-index: 10;
@@ -42,8 +42,15 @@
 }
 
 .contact-image {
-  margin-left: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 2.5rem;
+}
+
+.contact-image img {
+  max-width: 100%;
+  height: auto;
 }
 
 .contact-content-footer {
@@ -52,12 +59,12 @@
 
 .contact-content-footer p {
   margin: 2.5rem 0 2.4rem 0;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
   color: #555;
 }
 
 .contact-title {
-  font-size: 2rem;
+  font-size: clamp(1.6rem, 3vw, 2rem);
   line-height: 1.2;
   color: #1e1f23;
   margin-bottom: 1rem;
@@ -90,11 +97,22 @@
 
 .footer-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 3rem;
-  padding: 6rem 0 3rem 0;
+  gap: 3rem 2rem;
+  padding: 6rem clamp(1rem, 3vw, 2rem) 3rem;
   max-width: 1400px;
   margin: 0 auto;
+}
+
+.footer-container > * {
+  flex: 1 1 200px;
+  min-width: 200px;
+}
+
+.footer-container .content_1 {
+  flex: 1 1 300px;
+  max-width: 400px;
 }
 
 .footer-container .content_1 img {

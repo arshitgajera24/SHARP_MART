@@ -28,8 +28,10 @@ a {
 }
 
 .app {
-  width: 80%;
+  width: 100%;
+  max-width: 1400px;
   margin: auto;
+  padding: 0 clamp(1rem, 3vw, 2rem);
 }
 
 ::-webkit-scrollbar {
@@ -199,12 +201,7 @@ a {
 }
 
 @media (max-width: 380px) {
-  .app {
-    width: 100%;
-  }
-
   body {
-    width: 100%;
     overflow-x: hidden;
   }
 }

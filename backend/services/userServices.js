@@ -5,10 +5,9 @@ import { oauthAccountsTable, orderItemsTable, ordersTable, productsTable, resetP
 import argon2 from "argon2"
 import jwt from "jsonwebtoken"
 import crypto from "crypto"
-import fs from "fs/promises"
-import path from "path"
 import mjml2html from "mjml";
 import { sendEmail } from "../lib/sendEmail.js";
+import { resetPasswordEmailTemplate, verifyEmailTemplate } from "../emails/templates.js";
 
 
 export const findUserByEmail = async (email) => {
@@ -182,8 +181,7 @@ export const sendNewVerifyEmailLink = async ({userId, email}) => {
 
     const verifyEmailLink = await createEmailLink({ email, token: randomToken });
 
-    const mjmlTemplate = await fs.readFile(path.join(import.meta.dirname,"..","emails","verifyEmail.mjml"), "utf-8");
-    const filledTemplate = mjmlTemplate.replace("{{CODE}}", randomToken).replace("{{LINK}}", verifyEmailLink);
+    const filledTemplate = verifyEmailTemplate.replace(/{{CODE}}/g, randomToken).replace(/{{LINK}}/g, verifyEmailLink);
     const htmlOutput = mjml2html(filledTemplate).html;
 
     await sendEmail({
@@ -232,8 +230,7 @@ export const sendNewForgotPasswordVerifyEmailLink = async ({userId, email, name}
 
     const resetPasswordLink = `${process.env.FRONTEND_URL}/reset-password/${randomToken}`;
 
-    const mjmlTemplate = await fs.readFile(path.join(import.meta.dirname,"..","emails","resetPasswordEmail.mjml"), "utf-8");
-    const filledTemplate = mjmlTemplate.replace(/{{LINK}}/g, resetPasswordLink).replace(/{{NAME}}/g, name);
+    const filledTemplate = resetPasswordEmailTemplate.replace(/{{LINK}}/g, resetPasswordLink).replace(/{{NAME}}/g, name);
     const htmlOutput = mjml2html(filledTemplate).html;
 
     await sendEmail({

@@ -1,24 +1,25 @@
-import { Resend } from "resend";
+import { BrevoClient } from "@getbrevo/brevo";
 
-const resend = new Resend(process.env.API_KEY_RESEND);
+const brevo = new BrevoClient({ apiKey: process.env.BREVO_API_KEY });
 
 export const sendEmail = async ({to, subject, html}) => {
     try
     {
-        const { data, error } = await resend.emails.send({
-            from: "SHARP MART <website@resend.dev>",
-            to: [to],
+        const response = await brevo.transactionalEmails.sendTransacEmail({
             subject,
-            html,
-        })
+            htmlContent: html,
+            sender: { name: "SHARP MART", email: process.env.BREVO_SENDER_EMAIL },
+            to: [{ email: to }],
+        });
 
-        if(error) 
-        {
-            return console.error({error});
-        }
+        console.log("Email sent successfully: ", response);
     }
     catch(error)
     {
-        console.error(error.message);
+        console.error("Error sending email: ", error.message);
+        if (error.response) {
+            console.error("Brevo Error Detail: ", error.response.body);
+        }
     }
 }
+

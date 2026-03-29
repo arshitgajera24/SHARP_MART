@@ -101,9 +101,9 @@
           © 2025 SHARP MART — Surat, Gujarat
         </mj-text>
         <mj-text css-class="footer-text" font-size="14px" align="center" padding-top="8px">
-          <a href="https://sharpmart.in/help" style="color:tomato;text-decoration:none;">Help Center</a> &nbsp;|&nbsp;
-          <a href="https://sharpmart.in/terms" style="color:tomato;text-decoration:none;">Terms</a> &nbsp;|&nbsp;
-          <a href="https://sharpmart.in/privacy" style="color:tomato;text-decoration:none;">Privacy</a>
+          <a href="https://sharp-mart.vercel.app" style="color:tomato;text-decoration:none;">Help Center</a> &nbsp;|&nbsp;
+          <a href="https://sharp-mart.vercel.app" style="color:tomato;text-decoration:none;">Terms</a> &nbsp;|&nbsp;
+          <a href="https://sharp-mart.vercel.app" style="color:tomato;text-decoration:none;">Privacy</a>
         </mj-text>
       </mj-column>
     </mj-section>

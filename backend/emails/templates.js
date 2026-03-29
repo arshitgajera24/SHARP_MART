@@ -98,7 +98,7 @@ export const verifyEmailTemplate = `<mjml>
       <mj-column>
         <mj-divider border-width="1px" border-color="#e5e7eb" padding="10px 0" />
         <mj-text css-class="footer-text" font-size="14px" align="center" padding-top="10px">
-          © 2025 SHARP MART — Surat, Gujarat
+          © {{YEAR}} SHARP MART — Surat, Gujarat
         </mj-text>
         <mj-text css-class="footer-text" font-size="14px" align="center" padding-top="8px">
           <a href="https://sharp-mart.vercel.app" style="color:tomato;text-decoration:none;">Help Center</a> &nbsp;|&nbsp;
@@ -205,7 +205,7 @@ export const resetPasswordEmailTemplate = `<mjml>
       <mj-column>
         <mj-divider border-width="1px" border-color="#e5e7eb" padding="10px 0" />
         <mj-text css-class="footer-text" font-size="14px" align="center" padding-top="10px">
-          © 2025 SHARP MART — Surat, Gujarat
+          © {{YEAR}} SHARP MART — Surat, Gujarat
         </mj-text>
         <mj-text css-class="footer-text" font-size="14px" align="center" padding-top="8px">
           <a href="https://sharp-mart.vercel.app" style="color:tomato;text-decoration:none;">Help Center</a> &nbsp;|&nbsp;

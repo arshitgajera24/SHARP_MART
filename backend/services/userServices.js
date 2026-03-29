@@ -181,7 +181,8 @@ export const sendNewVerifyEmailLink = async ({userId, email}) => {
 
     const verifyEmailLink = await createEmailLink({ email, token: randomToken });
 
-    const filledTemplate = verifyEmailTemplate.replace(/{{CODE}}/g, randomToken).replace(/{{LINK}}/g, verifyEmailLink);
+    const currentYear = new Date().getFullYear();
+    const filledTemplate = verifyEmailTemplate.replace(/{{CODE}}/g, randomToken).replace(/{{LINK}}/g, verifyEmailLink).replace(/{{YEAR}}/g, currentYear);
     const htmlOutput = mjml2html(filledTemplate).html;
 
     await sendEmail({
@@ -230,7 +231,8 @@ export const sendNewForgotPasswordVerifyEmailLink = async ({userId, email, name}
 
     const resetPasswordLink = `${process.env.FRONTEND_URL}/reset-password/${randomToken}`;
 
-    const filledTemplate = resetPasswordEmailTemplate.replace(/{{LINK}}/g, resetPasswordLink).replace(/{{NAME}}/g, name);
+    const currentYear = new Date().getFullYear();
+    const filledTemplate = resetPasswordEmailTemplate.replace(/{{LINK}}/g, resetPasswordLink).replace(/{{NAME}}/g, name).replace(/{{YEAR}}/g, currentYear);
     const htmlOutput = mjml2html(filledTemplate).html;
 
     await sendEmail({

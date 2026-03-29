@@ -255,18 +255,24 @@
 
 .conditions {
   display: flex;
+  align-items: flex-start;
   gap: 10px;
 
    & p {
     font-size: 15px;
+    line-height: 1.4;
    }
 
    & span {
+    color: tomato;
+    font-weight: 500;
+    cursor: pointer;
     text-decoration: underline;
    }
 
    & input {
-    margin-top: -15px;
+    margin-top: 5px;
+    cursor: pointer;
    }
 }
 

@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm"
+import { and, eq, sql } from "drizzle-orm"
 import { db } from "../config/db.js"
 import { cartItemsTable, productsTable } from "../drizzle/schema.js"
 
@@ -8,15 +8,24 @@ export const findCartItembyProductIdAndUserId = async (userId, itemId) => {
 }
 
 export const addNewCartItem = async (userId, itemId) => {
-    return await db.insert(cartItemsTable).values({userId, itemId, quantity: 1});
+    return await db.insert(cartItemsTable)
+        .values({ userId, itemId, quantity: 1 })
+        .onConflictDoUpdate({
+            target: [cartItemsTable.userId, cartItemsTable.itemId],
+            set: { quantity: sql`${cartItemsTable.quantity} + 1`, updatedAt: sql`NOW()` }
+        });
 }
 
-export const increaseCartItem = async (userId, itemId, currQuantity) => {
-    return await db.update(cartItemsTable).set({quantity: currQuantity + 1}).where(and(eq(cartItemsTable.itemId, itemId), eq(cartItemsTable.userId, userId)));
+export const increaseCartItem = async (userId, itemId) => {
+    return await db.update(cartItemsTable)
+        .set({ quantity: sql`${cartItemsTable.quantity} + 1`, updatedAt: sql`NOW()` })
+        .where(and(eq(cartItemsTable.itemId, itemId), eq(cartItemsTable.userId, userId)));
 }
 
-export const decreaseCartItem = async (userId, itemId, currQuantity) => {
-    return await db.update(cartItemsTable).set({quantity: currQuantity - 1}).where(and(eq(cartItemsTable.itemId, itemId), eq(cartItemsTable.userId, userId)));
+export const decreaseCartItem = async (userId, itemId) => {
+    return await db.update(cartItemsTable)
+        .set({ quantity: sql`${cartItemsTable.quantity} - 1`, updatedAt: sql`NOW()` })
+        .where(and(eq(cartItemsTable.itemId, itemId), eq(cartItemsTable.userId, userId)));
 }
 
 export const removeCartItem = async (userId, itemId) => {

@@ -12,20 +12,36 @@ const StoreContextProvider = ({children}) => {
     const [user, setUser] = useState(undefined);
     const [productList, setProductList] = useState([]);
     const [userData, setUserData] = useState(null);
+    const [isCartLoading, setIsCartLoading] = useState(false);
     const syncTimeout = useRef(null);
+    const pendingActions = useRef(0);
     
     const navigate = useNavigate();
 
     const loadCartData = async () => {
         if(user)
         {
-            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/cart/get`, {}, {
-                withCredentials: true
-            })
+            // If we are actively updating the cart, don't fetch from server yet
+            // to avoid overwriting the optimistic state with potentially stale DB data
+            if (pendingActions.current > 0) return;
 
-            if(response.data.success)
-            {                
-                setCartItems(response.data.cartData);
+            setIsCartLoading(true);
+            try {
+                const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/cart/get`, {}, {
+                    withCredentials: true
+                })
+    
+                if(response.data.success)
+                {                
+                    // Dual-check: if a user clicked while we were fetching, ignore this data
+                    if (pendingActions.current === 0) {
+                        setCartItems(response.data.cartData);
+                    }
+                }
+            } catch (error) {
+                console.error("Error loading cart:", error);
+            } finally {
+                setIsCartLoading(false);
             }
         }
     }
@@ -67,12 +83,13 @@ const StoreContextProvider = ({children}) => {
       if (syncTimeout.current) clearTimeout(syncTimeout.current);
       syncTimeout.current = setTimeout(() => {
         loadCartData();
-      }, 800);
+      }, 1000); // 1s debounce to ensure backend has settled
     };
 
     const addToCart = async (itemId) => {
         if(user)
         {
+            // Optimistic update
             setCartItems(prev => {
               const existingItem = prev.find(item => item.product.id === itemId);
               if (existingItem) {
@@ -83,30 +100,34 @@ const StoreContextProvider = ({children}) => {
                 );
               } else {
                 const product = productList.find(p => p.id === itemId);
-                return [...prev, { id: Date.now(), quantity: 1, product }];
+                return [...prev, { id: `temp-${Date.now()}`, quantity: 1, product }];
               }
             });
 
+            pendingActions.current += 1;
             try 
             {
                 const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/cart/add`, {itemId}, {
                     withCredentials: true
                 })
     
-                if (response.data.success) {
-                    scheduleCartSync();
-                } else {
+                if (!response.data.success) {
                     toast.error(response.data.error || "Failed to add item");
-                    scheduleCartSync();
                 }
             } catch (error) {
               console.error("Error adding to cart:", error);
               toast.error("Network error while adding to cart");
-              scheduleCartSync();
+            } finally {
+                pendingActions.current -= 1;
+                // Only sync from server when all clicks are processed
+                if (pendingActions.current === 0) {
+                    scheduleCartSync();
+                }
             }
         }
         else
         {
+            // Guest cart logic remains same
             const existingItem = cartItems.find(item => item.product.id === itemId);
             if(existingItem)
             {
@@ -129,6 +150,7 @@ const StoreContextProvider = ({children}) => {
     const decreaseFromCart = async (itemId) => {
         if(user)
         {
+            // Optimistic update
             setCartItems(prev =>
                 prev.map(item =>
                     item.product.id === itemId
@@ -137,22 +159,24 @@ const StoreContextProvider = ({children}) => {
                 ).filter(item => item.quantity > 0)
             );
 
+            pendingActions.current += 1;
             try 
             {
                 const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/cart/decrease`, {itemId}, {
                     withCredentials: true
                 })
     
-                if (response.data.success) {
-                    scheduleCartSync();
-                } else {
+                if (!response.data.success) {
                     toast.error(response.data.error || "Failed to decrease item");
-                    scheduleCartSync();
                 }
             } catch (error) {
               console.error("Error decreasing from cart:", error);
               toast.error("Network error while decreasing from cart");
-              scheduleCartSync();
+            } finally {
+                pendingActions.current -= 1;
+                if (pendingActions.current === 0) {
+                    scheduleCartSync();
+                }
             }
         }
         else
@@ -170,24 +194,27 @@ const StoreContextProvider = ({children}) => {
     const removeFromCart = async (itemId) => {
         if(user)
         {
+            // Optimistic update
             setCartItems(prev => prev.filter(item => item.product.id !== itemId));
 
+            pendingActions.current += 1;
             try
             {
                 const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/cart/remove`, {itemId}, {
                     withCredentials: true
                 })
     
-                if (response.data.success) {
-                    scheduleCartSync();
-                } else {
+                if (!response.data.success) {
                     toast.error(response.data.error || "Failed to remove item");
-                    scheduleCartSync();
                 }
             } catch (error) {
               console.error("Error removing from cart:", error);
               toast.error("Network error while removing from cart");
-              scheduleCartSync();
+            } finally {
+                pendingActions.current -= 1;
+                if (pendingActions.current === 0) {
+                    scheduleCartSync();
+                }
             }
         }
         else
@@ -266,7 +293,8 @@ const StoreContextProvider = ({children}) => {
         setUser,
         userData,
         setUserData,
-        fetchUserData
+        fetchUserData,
+        isCartLoading
     }
 
     return (

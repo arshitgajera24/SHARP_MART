@@ -9,8 +9,7 @@ import { useEffect } from 'react';
 
 const Cart = () => {
     const [loaded, setLoaded] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const {cartItems, removeFromCart, decreaseFromCart, addToCart, getTotalCartAmount } = useContext(StoreContext);
+    const {cartItems, removeFromCart, decreaseFromCart, addToCart, getTotalCartAmount, isCartLoading } = useContext(StoreContext);
 
     const navigate = useNavigate();
 
@@ -20,21 +19,7 @@ const Cart = () => {
         cartId: cart.id
     }))
 
-    useEffect(() => {
-        if(cartItems.length === 0)
-        {
-            setIsLoading(true);
-            const timer = setTimeout(() => {
-                setIsLoading(false);
-            }, 200);
-
-            return () => clearTimeout(timer);
-        }
-        else
-            setIsLoading(false);
-    }, [cartItems]);
-
-    if (isLoading) {
+    if (isCartLoading && itemsInCart.length === 0) {
         return (
             <div className="loader-container">
                 <div className="loader"></div>

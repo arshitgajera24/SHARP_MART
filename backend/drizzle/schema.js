@@ -153,7 +153,7 @@
 
 
 import { relations, sql } from "drizzle-orm";
-import { pgTable, serial, doublePrecision, integer, varchar, text, boolean, timestamp, pgEnum } from "drizzle-orm/pg-core";
+import { pgTable, serial, doublePrecision, integer, varchar, text, boolean, timestamp, pgEnum, uniqueIndex } from "drizzle-orm/pg-core";
 
 // ---------- USERS ----------
 export const usersTable = pgTable("users", {
@@ -189,6 +189,10 @@ export const cartItemsTable = pgTable("cart_items", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   userId: integer("user_id").notNull().references(() => usersTable.id),
+}, (table) => {
+  return {
+    userItemUnique: uniqueIndex("user_item_idx").on(table.userId, table.itemId),
+  }
 });
 
 // ---------- SESSIONS ----------
